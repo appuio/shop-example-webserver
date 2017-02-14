@@ -1,0 +1,8 @@
+{
+  "name": "docs_example_webserver",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://git.vshn.net/appuio/docs_example_webserver.git",
+  "author": "Roland Schläfli <rolandschlaefli@gmail.com>",
+  "license": "Proprietary"
+}
