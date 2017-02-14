@@ -91,3 +91,15 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+yarn-debug.log*
+yarn-error.log*
