@@ -1,0 +1,14 @@
+.idea
+.git
+.gitignore
+.editorconfig
+
+README.md
+Dockerfile
+
+package.json
+yarn.lock
+node_modules
+
+public
+src
