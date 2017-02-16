@@ -39,7 +39,8 @@ build:
         - docker:dind
     script:
         - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-        - docker build -t $CI_REGISTRY_IMAGE .
+        - docker pull $CI_REGISTRY_IMAGE
+        - docker build --cache-from $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF -t $CI_REGISTRY_IMAGE:latest .
         - docker push $CI_REGISTRY_IMAGE
     tags:
         - dockerbuild
