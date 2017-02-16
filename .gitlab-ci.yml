@@ -5,7 +5,7 @@ stages:
 
 test:
     stage: test
-    image: registry.vshn.net/appuio/docs_runner_yarn
+    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
         - yarn test --cache-dir="cache"
     artifacts:
@@ -18,7 +18,7 @@ test:
 
 compile:
     stage: compile
-    image: registry.vshn.net/appuio/docs_runner_yarn
+    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
         - yarn install --cache-dir="cache"
     artifacts:
