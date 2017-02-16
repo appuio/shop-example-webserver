@@ -2,8 +2,8 @@
 # use mainline as recommended by devs and alpine for reduced size
 FROM nginx:1.11-alpine
 
-# create new user with id 1001
-RUN adduser -S 1001
+# create new user with id 1001 and add to root group
+RUN adduser -S 1001 -G 0
 
 # copy the custom nginx config to /etc/nginx
 COPY nginx.conf /etc/nginx/nginx.conf
