@@ -1,0 +1,42 @@
+stages:
+    - test
+    - compile
+    - build
+
+test:
+    stage: test
+    image: registry.vshn.net/appuio/docs_runner_yarn
+    script:
+        - yarn test --cache-dir="cache"
+    artifacts:
+        expire_in: "5min"
+        paths:
+            - "cache"
+    cache:
+        paths:
+            - "cache"
+
+compile:
+    stage: compile
+    image: registry.vshn.net/appuio/docs_runner_yarn
+    script:
+        - yarn install --cache-dir="cache"
+    artifacts:
+        expire_in: "5min"
+        paths:
+            - "build"
+    cache:
+        paths:
+            - "cache"
+
+build:
+    stage: build
+    image: docker:latest
+    services:
+        - docker:dind
+    script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker build -t $CI_REGISTRY_IMAGE .
+        - docker push $CI_REGISTRY_IMAGE
+    tags:
+        - dockerbuild
