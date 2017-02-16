@@ -7,7 +7,7 @@ test:
     stage: test
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install --cache-dir=".yarn-cache"
+        - yarn install --cache-folder=".yarn-cache"
         - yarn test
     artifacts:
         expire_in: "5min"
@@ -21,7 +21,7 @@ compile:
     stage: compile
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install --cache-dir=".yarn-cache"
+        - yarn install --cache-folder=".yarn-cache"
         - yarn build
     artifacts:
         expire_in: "5min"
