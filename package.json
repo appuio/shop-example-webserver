@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "https://git.vshn.net/appuio/docs_example_webserver.git",
   "author": "Roland Schläfli <rolandschlaefli@gmail.com>",
-  "license": "Proprietary",
+  "private": true,
   "devDependencies": {
     "react-scripts": "0.9.0"
   },
