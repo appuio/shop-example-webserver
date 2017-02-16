@@ -8,7 +8,6 @@ cache:
     paths:
         - .yarn
         - node_modules/
-        - build/
 
 test:
     stage: test
