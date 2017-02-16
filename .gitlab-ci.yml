@@ -18,7 +18,7 @@ test:
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
         - yarn install
-        - yarn test --cache-folder=".yarn-test"
+        # - yarn test
     artifacts:
         expire_in: "5min"
         paths:
