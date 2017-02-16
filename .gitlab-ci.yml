@@ -3,25 +3,29 @@ stages:
     - compile
     - build
 
+cache:
+    key: "$CI_PROJECT_ID"
+    paths:
+        - .yarn
+        - node_modules/
+        - build/
+
 test:
     stage: test
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install --cache-folder=".yarn-cache"
+        - yarn install --cache-folder=".yarn"
         - yarn test
     artifacts:
         expire_in: "5min"
         paths:
-            - ".yarn-cache"
-    cache:
-        paths:
-            - ".yarn-cache"
+            - ".yarn"
 
 compile:
     stage: compile
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install --cache-folder=".yarn-cache"
+        - yarn install --cache-folder=".yarn"
         - yarn build
     artifacts:
         expire_in: "5min"
