@@ -10,14 +10,11 @@ cache:
         - node_modules/
         - build/
 
-before_script:
-    - yarn config set cache-folder ".yarn"
-
 test:
     stage: test
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install
+        - yarn install --cache-folder=".yarn"
         # - yarn test
     artifacts:
         expire_in: "5min"
@@ -28,7 +25,7 @@ compile:
     stage: compile
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install
+        - yarn install --cache-folder=".yarn"
         - yarn build
     artifacts:
         expire_in: "5min"
