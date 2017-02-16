@@ -3,9 +3,16 @@
 FROM nginx:1.11-alpine
 
 # create new user with id 1001
-# RUN adduser -S 1001
+RUN adduser -S 1001
+
+# copy the custom nginx config to /etc/nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # copy artifacts from the public folder into the html folder
 COPY build /usr/share/nginx/html
 
-# TODO: make nginx run as 1001
+# expose port 9000
+EXPOSE 9000
+
+# switch to user 1001 (non-root)
+USER 1001
