@@ -40,7 +40,8 @@ build:
     script:
         # TODO: optimize the oc installation step
         - wget https://github.com/openshift/origin/releases/download/v1.4.1/openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
-        - tar -xvfz openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
+        - ls -la
+        - tar -xzvf openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
         - mv openshift-origin-client-tools-v1.4.1+3f9807a-linux-64bit/oc /usr/local/bin/
         - oc
         - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
