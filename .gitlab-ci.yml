@@ -3,12 +3,17 @@ stages:
     - compile
     - build
 
+before_script:
+    - yarn config set cache-folder cache
+
 test:
     stage: test
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install --cache-dir="cache"
+        - yarn install
         - yarn test
+        - yarn cache ls
+        - yarn cache dir
     artifacts:
         expire_in: "5min"
         paths:
@@ -21,7 +26,7 @@ compile:
     stage: compile
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
-        - yarn install --cache-dir="cache"
+        - yarn install
         - yarn build
     artifacts:
         expire_in: "5min"
