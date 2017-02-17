@@ -40,7 +40,7 @@ build:
         - docker:dind
     script:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
-        - docker login -u serviceaccount -p `oc whoami -t` https://registry.appuio.ch
+        - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
         # - docker pull $OC_REGISTRY_IMAGE:latest
         # - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
         - docker build . -t $OC_REGISTRY_IMAGE:latest
@@ -50,5 +50,6 @@ build:
     tags:
         - dockerbuild
     variables:
-        OC_REGISTRY_IMAGE: "$KUBE_URL/$KUBE_NAMESPACE/docs_example_webserver"
+        OC_REGISTRY_URL: "https://registry.appuio.ch"
+        OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
     environment: staging
