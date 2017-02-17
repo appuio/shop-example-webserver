@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Button, Card, Container, Grid, Icon, Input, Menu, Segment } from "semantic-ui-react";
+import { Button, Card, Container, Grid, Icon, Input, List, Menu, Segment } from "semantic-ui-react";
 
 class App extends Component {
   state = {
@@ -46,6 +46,20 @@ class App extends Component {
             <Grid.Column width={4}>
               <Segment>
                 <Input fluid placeholder="Search..."/>
+                <List>
+                  <List.Item>
+                    <List.Icon name="folder"/>
+                    <List.Content>Continuous Integration</List.Content>
+                  </List.Item>
+                  <List.Item>
+                    <List.Icon name="folder"/>
+                    <List.Content>Operating Systems</List.Content>
+                  </List.Item>
+                  <List.Item>
+                    <List.Icon name="folder"/>
+                    <List.Content>Webservers</List.Content>
+                  </List.Item>
+                </List>
               </Segment>
             </Grid.Column>
             <Grid.Column width={12}>
