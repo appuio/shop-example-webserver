@@ -50,6 +50,6 @@ build:
     tags:
         - dockerbuild
     variables:
-        OC_REGISTRY_URL: "https://registry.appuio.ch"
+        OC_REGISTRY_URL: "registry.appuio.ch"
         OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
     environment: staging
