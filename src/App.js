@@ -1,19 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { IndexLink } from "react-router";
+import { Container, Grid, Icon, Menu, Segment } from "semantic-ui-react";
+import "./App.css";
 
-class App extends Component {
+class App extends React.Component {
   render() {
+    const { children } = this.props;
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Container>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column>
+              <Menu inverted>
+                <Menu.Item>
+                  <IndexLink to="/">Home</IndexLink>
+                </Menu.Item>
+                <Menu.Item position="right">
+                  <Icon name="cart"/>
+                  Cart
+                </Menu.Item>
+              </Menu>
+            </Grid.Column>
+          </Grid.Row>
+          {children}
+          <Grid.Row>
+            <Grid.Column>
+              <Segment>
+                &copy; VSHN AG
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     );
   }
 }

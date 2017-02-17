@@ -6,7 +6,7 @@ FROM nginx:1.11-alpine
 RUN adduser -S 1001 -G root
 
 # copy the custom nginx config to /etc/nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 # copy artifacts from the public folder into the html folder
 COPY build /usr/share/nginx/html
