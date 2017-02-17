@@ -30,22 +30,24 @@ compile:
         expire_in: "5min"
         paths:
             - "build"
+    only:
+        - master
 
 build:
     stage: build
-    image: docker:latest
+    image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
         - docker:dind
     script:
-        # TODO: optimize the oc installation step
-        - wget https://github.com/openshift/origin/releases/download/v1.4.1/openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
-        - ls -la
-        - tar -xzvf openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
-        - mv openshift-origin-client-tools-v1.4.1+3f9807a-linux-64bit/oc /usr/local/bin/
-        - oc
-        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-        - docker pull $CI_REGISTRY_IMAGE:latest
-        - docker build --cache-from $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF -t $CI_REGISTRY_IMAGE:latest .
-        - docker push $CI_REGISTRY_IMAGE:latest $CI_REGISTRY_IMAGE:$CI_BUILD_REF
+        - oc login https://console.appuio.ch --token=$APPUIO_TOKEN
+        - docker login -u `oc whoami` -p `oc whoami -t` https://console.appuio.ch
+        # - docker pull $OC_REGISTRY_IMAGE:latest
+        # - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
+        - docker build . -t $OC_REGISTRY_IMAGE:latest
+        - docker push $OC_REGISTRY_IMAGE:latest
+    only:
+        - master
     tags:
         - dockerbuild
+    variables:
+        OC_REGISTRY_IMAGE: "https://console.appuio.ch/vshn-demoapp1/docs_example_webserver"
