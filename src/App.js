@@ -1,7 +1,6 @@
 import React from "react";
-import { Card, Container, Grid, Icon, Input, List, Menu, Segment } from "semantic-ui-react";
+import { Container, Grid, Icon, Menu, Segment } from "semantic-ui-react";
 import "./App.css";
-import Product from "./Product";
 
 class App extends React.Component {
   state = {
@@ -9,13 +8,7 @@ class App extends React.Component {
   };
 
   render() {
-    const products = [
-      { name: "Microsoft Windows 10", price: 250 },
-      { name: "Microsoft Office 2016", price: 100 },
-      { name: "Ubuntu 16.10", price: 0 },
-      { name: "NodeJS 0.10", price: 0 }
-    ];
-
+    const { children } = this.props;
     const { active } = this.state;
 
     return (
@@ -43,32 +36,7 @@ class App extends React.Component {
               </Menu>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={4}>
-              <Segment>
-                <Input fluid placeholder="Search..."/>
-                <List>
-                  <List.Item>
-                    <List.Icon name="folder"/>
-                    <List.Content>Continuous Integration</List.Content>
-                  </List.Item>
-                  <List.Item>
-                    <List.Icon name="folder"/>
-                    <List.Content>Operating Systems</List.Content>
-                  </List.Item>
-                  <List.Item>
-                    <List.Icon name="folder"/>
-                    <List.Content>Webservers</List.Content>
-                  </List.Item>
-                </List>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column width={12}>
-              <Card.Group itemsPerRow={3}>
-                {products.map((product, index) => <Product key={index} {...product} />)}
-              </Card.Group>
-            </Grid.Column>
-          </Grid.Row>
+          {children}
           <Grid.Row>
             <Grid.Column>
               <Segment>

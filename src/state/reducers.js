@@ -1,1 +1,1 @@
-export const rootReducer = (state = { page: "home" }, action) => state;
+export const rootReducer = (state, action) => state;
