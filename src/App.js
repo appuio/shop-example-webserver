@@ -1,36 +1,68 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Container, Grid, Menu, Segment } from "semantic-ui-react";
+import { Button, Card, Container, Grid, Icon, Input, Menu, Segment } from "semantic-ui-react";
 
 class App extends Component {
   state = {
-    active: 0
+    active: "home"
   };
 
   render() {
+    const products = [
+      { name: "Microsoft Windows 10", price: 250 },
+      { name: "Microsoft Office 2016", price: 100 },
+      { name: "Ubuntu 16.10", price: 0 },
+      { name: "NodeJS 0.10", price: 0 }
+    ];
+
+    const { active } = this.state;
+
     return (
       <Container>
         <Grid>
           <Grid.Row>
             <Grid.Column>
               <Menu inverted>
-                <Menu.Item active={this.state.active === 0}
-                           onClick={() => this.setState({ active: 0 })}>Home</Menu.Item>
-                <Menu.Item active={this.state.active === 1} onClick={() => this.setState({ active: 1 })}
-                           position="right">Account</Menu.Item>
+                <Menu.Item
+                  name="home"
+                  active={active === "home"}
+                  onClick={() => this.setState({ active: "home" })}
+                >
+                  Home
+                </Menu.Item>
+                <Menu.Item
+                  name="cart"
+                  active={active === "cart"}
+                  onClick={() => this.setState({ active: "cart" })}
+                  position="right"
+                >
+                  <Icon name="cart"/>
+                  Cart
+                </Menu.Item>
               </Menu>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width="4">
+            <Grid.Column width={4}>
               <Segment>
-                FILTERS
+                <Input fluid placeholder="Search..."/>
               </Segment>
             </Grid.Column>
-            <Grid.Column width="12">
-              <Segment>
-                PRODUCTS
-              </Segment>
+            <Grid.Column width={12}>
+              <Card.Group itemsPerRow={3}>
+                {
+                  products.map(({ name, price }, index) =>
+                    <Card key={index}>
+                      <Card.Content>
+                        <Card.Header>{name}</Card.Header>
+                      </Card.Content>
+                      <Card.Content extra>
+                        <Button basic icon="cart" label="Add to Cart" labelPosition="right"/>
+                      </Card.Content>
+                    </Card>
+                  )
+                }
+              </Card.Group>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
