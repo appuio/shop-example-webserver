@@ -40,7 +40,7 @@ build:
         - docker:dind
     script:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
-        - docker login -u `oc whoami` -p `oc whoami -t` https://registry.appuio.ch
+        - docker login -u serviceaccount -p `oc whoami -t` https://registry.appuio.ch
         # - docker pull $OC_REGISTRY_IMAGE:latest
         # - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
         - docker build . -t $OC_REGISTRY_IMAGE:latest
