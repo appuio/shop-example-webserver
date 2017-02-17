@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
+import { Card, Container, Grid, Icon, Input, List, Menu, Segment } from "semantic-ui-react";
 import "./App.css";
-import { Button, Card, Container, Grid, Icon, Input, List, Menu, Segment } from "semantic-ui-react";
+import Product from "./Product";
 
-class App extends Component {
+class App extends React.Component {
   state = {
     active: "home"
   };
@@ -64,18 +65,7 @@ class App extends Component {
             </Grid.Column>
             <Grid.Column width={12}>
               <Card.Group itemsPerRow={3}>
-                {
-                  products.map(({ name, price }, index) =>
-                    <Card key={index}>
-                      <Card.Content>
-                        <Card.Header>{name}</Card.Header>
-                      </Card.Content>
-                      <Card.Content extra>
-                        <Button basic icon="cart" label="Add to Cart" labelPosition="right"/>
-                      </Card.Content>
-                    </Card>
-                  )
-                }
+                {products.map((product, index) => <Product key={index} {...product} />)}
               </Card.Group>
             </Grid.Column>
           </Grid.Row>
