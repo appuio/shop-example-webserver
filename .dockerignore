@@ -1,15 +1,2 @@
-.idea
-.git
-.gitignore
-.editorconfig
-
-README.md
-Dockerfile
-run.sh
-
-package.json
-yarn.lock
-node_modules
-
-public
-src
+*
+!build/
