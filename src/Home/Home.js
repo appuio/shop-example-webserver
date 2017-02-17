@@ -33,7 +33,7 @@ const Home = () => {
       </Grid.Column>
       <Grid.Column width={12}>
         <Card.Group itemsPerRow={3}>
-          {products.map((product, index) => <Product key={index} {...product} />)}
+          {products.map((product, index) => <Product key={index} index={index} {...product} />)}
         </Card.Group>
       </Grid.Column>
     </Grid.Row>
