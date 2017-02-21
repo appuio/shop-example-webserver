@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router";
 import { Button, Card } from "semantic-ui-react";
 
-const Product = ({ id, title, body }) =>
+const Product = ({ id, name, price }) =>
   <Card>
     <Card.Content>
       <Card.Header>
-        <Link to={`/products/${id}`}>{title}</Link>
+        <Link to={`/products/${id}`}>{name}</Link>
       </Card.Header>
       <Card.Description>
-        Now only {body} CHF
+        Now only {price} CHF
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
