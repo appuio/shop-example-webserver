@@ -9,6 +9,7 @@ import App from "./App";
 import Home from "./Home/Home";
 import Product from "./Product/Product";
 import "semantic-ui-css/semantic.css";
+import "rxjs";
 
 const store = setupStore(rootReducer);
 const history = syncHistoryWithStore(browserHistory, store);
