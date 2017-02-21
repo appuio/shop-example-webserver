@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchProduct } from "../state/actions";
+import { fetchProduct } from "../state/product";
 import { Accordion, Grid, Icon, Segment } from "semantic-ui-react";
 
 class Product extends React.Component {

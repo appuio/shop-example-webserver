@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Grid, Input, List, Loader, Message, Segment } from "semantic-ui-react";
-import { fetchProducts } from "../state/actions";
+import { fetchProducts } from "../state/products";
 import Product from "./Product";
 
 class Home extends React.Component {

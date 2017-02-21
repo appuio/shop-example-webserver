@@ -3,15 +3,13 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { browserHistory, IndexRoute, Route, Router } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
-import { rootReducer } from "./state/reducers";
-import { setupStore } from "./state/store";
+import { configureStore } from "./state/store";
 import App from "./App";
 import Home from "./Home/Home";
 import Product from "./Product/Product";
 import "semantic-ui-css/semantic.css";
-import "rxjs";
 
-const store = setupStore(rootReducer);
+const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
@@ -25,3 +23,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+// import "rxjs";
