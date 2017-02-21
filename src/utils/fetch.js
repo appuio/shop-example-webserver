@@ -1,5 +1,5 @@
 export const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 400) {
+  if (response.status >= 200 && response.status < 400 && response.success) {
     return response;
   } else {
     const error = new Error(response.statusText);
