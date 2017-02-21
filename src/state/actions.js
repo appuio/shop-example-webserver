@@ -1,4 +1,5 @@
 import { ajax } from "rxjs/observable/dom/ajax";
+import { combineEpics } from "redux-observable";
 
 export const PRODUCTS_REQUEST = 'PRODUCTS_REQUEST';
 export const productsRequest = () => ({ type: PRODUCTS_REQUEST });
@@ -33,3 +34,8 @@ const fetchProductEpic = action$ =>
         .map(response => productReceive(response))
         .catch(error => productFail(error))
     );
+
+export const rootEpic = combineEpics(
+  fetchProductsEpic,
+  fetchProductEpic
+);

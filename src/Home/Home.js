@@ -5,10 +5,6 @@ import { productsRequest } from "../state/actions";
 import Product from "./Product";
 
 class Home extends React.Component {
-  componentDidMount() {
-    this.props.productsRequest();
-  }
-
   render() {
     const { loading, data, error } = this.props.products;
 
