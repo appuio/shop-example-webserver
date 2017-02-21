@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Grid, Input, List, Loader, Message, Segment } from "semantic-ui-react";
 import Product from "./Product";
 
-const Products = ({ products: { loading, data, error } }) =>
+const Products = ({ products: { loading, items, error } }) =>
   <Grid.Row>
     <Grid.Column width={4}>
       <Segment>
@@ -24,14 +24,14 @@ const Products = ({ products: { loading, data, error } }) =>
       </Segment>
     </Grid.Column>
     <Grid.Column width={12}>
+      {loading && <Loader active inline="centered"/>}
       {
-        !loading && data &&
+        !loading && items &&
         <Card.Group itemsPerRow={3}>
-          {data.map(product => <Product key={product.id} {...product} />)}
+          {items.map(product => <Product key={product.id} {...product} />)}
         </Card.Group>
       }
-      {loading && <Loader active inline="centered"/>}
-      {error && <Message error>Fail</Message>}
+      {error && <Message error>Error: {error}</Message>}
     </Grid.Column>
   </Grid.Row>;
 
