@@ -27,7 +27,7 @@ const Products = ({ products: { loading, data, error } }) =>
       {
         !loading && data &&
         <Card.Group itemsPerRow={3}>
-          {data.map((product, index) => <Product key={index} index={index} {...product} />)}
+          {data.map(product => <Product key={product.id} {...product} />)}
         </Card.Group>
       }
       {loading && <Loader active inline="centered"/>}
