@@ -1,10 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Grid, Input, List, Loader, Message, Segment } from "semantic-ui-react";
-import { productsRequest } from "../state/actions";
+import { fetchProducts } from "../state/actions";
 import Product from "./Product";
 
 class Home extends React.Component {
+  componentDidMount() {
+    const { fetch } = this.props;
+
+    fetch();
+  }
+
   render() {
     const { loading, data, error } = this.props.products;
 
@@ -37,7 +43,7 @@ class Home extends React.Component {
             </Card.Group>
           }
           {loading && <Loader active inline="centered"/>}
-          {error && <Message error>Fail</Message>}
+          {error && <Message error>{error}</Message>}
         </Grid.Column>
       </Grid.Row>
     );
@@ -49,6 +55,6 @@ export default connect(
     products: state.products
   }),
   dispatch => ({
-    productsRequest: dispatch(productsRequest())
+    fetch: () => dispatch(fetchProducts())
   })
 )(Home);
