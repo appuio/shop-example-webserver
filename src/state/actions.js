@@ -20,6 +20,10 @@ export const PRODUCT_FAIL = 'PRODUCT_FAIL';
 export const productFail = (error) => ({ type: PRODUCT_FAIL, payload: error });
 
 export const fetchProducts = () => (dispatch, getState) => {
+  if (getState().products.data) {
+    return Promise.resolve();
+  }
+
   dispatch(productsRequest());
 
   fetch('https://jsonplaceholder.typicode.com/posts')
@@ -30,6 +34,10 @@ export const fetchProducts = () => (dispatch, getState) => {
 };
 
 export const fetchProduct = (id) => (dispatch, getState) => {
+  if (getState().product.data && getState().product.data.id === id) {
+    return Promise.resolve();
+  }
+
   dispatch(productRequest(id));
 
   fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
