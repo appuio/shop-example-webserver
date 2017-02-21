@@ -50,7 +50,7 @@ export const fetchProduct = (id) => (dispatch, getState) => {
   dispatch(productRequest(id));
 
   // call the api
-  fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+  fetch(`https://api-vshn-demoapp1.appuioapp.ch/products/${id}`)
     .then(checkStatus)
     .then(parseJSON)
     .then(json => dispatch(productReceive(json)))
