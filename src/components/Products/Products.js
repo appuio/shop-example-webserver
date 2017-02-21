@@ -31,7 +31,7 @@ const Products = ({ products: { loading, data, error } }) =>
         </Card.Group>
       }
       {loading && <Loader active inline="centered"/>}
-      {error && <Message error>{error}</Message>}
+      {error && <Message error>Fail</Message>}
     </Grid.Column>
   </Grid.Row>;
 
