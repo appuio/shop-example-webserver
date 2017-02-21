@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Grid, Icon, Loader, Message, Segment } from "semantic-ui-react";
+import { Accordion, Grid, Header, Icon, Loader, Message, Segment } from "semantic-ui-react";
 
 const Product = ({ product: { loading, data, error } }) => {
   return (
@@ -11,51 +11,41 @@ const Product = ({ product: { loading, data, error } }) => {
           <Grid>
             <Grid.Row>
               <Grid.Column>
-                <Segment>{data.name}</Segment>
+                <Header as="h1">
+                  {data.name}
+                </Header>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
+              <Grid.Column width={4}>
+                <Header attached="top">Pricing</Header>
+                <Segment attached>Yearly license fee: {data.price} CHF</Segment>
+              </Grid.Column>
+              <Grid.Column width={4}>
+                <Header attached="top">Description</Header>
+                <Segment attached>Blabla blubb</Segment>
+              </Grid.Column>
               <Grid.Column width={8}>
-                <Segment>
+                <Header attached="top">Specifications</Header>
+                <Segment attached>
                   <Accordion>
                     <Accordion.Title>
                       <Icon name='dropdown'/>
-                      What is a dog?
+                      Supported operating systems
                     </Accordion.Title>
                     <Accordion.Content>
-                      <p></p>
+                      <p>Sorry, Linux only..</p>
                     </Accordion.Content>
                     <Accordion.Title>
                       <Icon name='dropdown'/>
-                      What kinds of dogs are there?
+                      Hardware requirements
                     </Accordion.Title>
                     <Accordion.Content>
-                      <p>
-                        There are many breeds of dogs. Each breed varies in size and temperament.
-                        {' '}Owners often select a breed of dog that they find to be compatible
-                        with their own lifestyle and desires from a companion.
-                      </p>
-                    </Accordion.Content>
-                    <Accordion.Title>
-                      <Icon name='dropdown'/>
-                      How do you acquire a dog?
-                    </Accordion.Title>
-                    <Accordion.Content>
-                      <p>
-                        Three common ways for a prospective owner to acquire a dog is from pet shops,
-                        {' '}private owners, or shelters.
-                      </p>
-                      <p> A pet shop may be the most convenient way to buy a dog.
-                        {' '}Buying a dog from a private owner allows you to assess the pedigree and
-                        {' '}upbringing of your dog before choosing to take it home. Lastly, finding your dog
-                        {' '}from a shelter, helps give a good home to a dog who may not find one so readily.
-                      </p>
+                      <p>16 cores, 128GB RAM</p>
                     </Accordion.Content>
                   </Accordion>
                 </Segment>
               </Grid.Column>
-              <Grid.Column width={4}><Segment>INFO3</Segment></Grid.Column>
-              <Grid.Column width={4}><Segment>INFO4</Segment></Grid.Column>
             </Grid.Row>
           </Grid>
         }
