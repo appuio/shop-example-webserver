@@ -14,8 +14,6 @@ import "rxjs";
 const store = setupStore(rootReducer);
 const history = syncHistoryWithStore(browserHistory, store);
 
-const rootEl = document.getElementById('root');
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
@@ -25,15 +23,5 @@ ReactDOM.render(
       </Route>
     </Router>
   </Provider>,
-  rootEl
+  document.getElementById('root')
 );
-
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
-    ReactDOM.render(
-      <NextApp />,
-      rootEl
-    );
-  });
-}
