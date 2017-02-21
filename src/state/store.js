@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { routerReducer } from "react-router-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { createEpicMiddleware } from "redux-observable";
 import { rootEpic } from "./actions";
 
@@ -11,7 +12,8 @@ export const setupStore = (rootReducer) => {
       ...rootReducer,
       routing: routerReducer
     }),
-    applyMiddleware(epicMiddleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(
+      applyMiddleware(epicMiddleware)
+    )
   );
 };
