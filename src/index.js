@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { browserHistory, IndexRoute, Route, Router } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
-import { configureStore } from "./state/store";
-import App from "./App";
-import Home from "./Home/Home";
-import Product from "./Product/Product";
+import { configureStore } from "./redux/store/configureStore";
+import App from "./containers/App";
+import ProductsContainer from "./containers/ProductsContainer";
+import ProductContainer from "./containers/ProductContainer";
 import "semantic-ui-css/semantic.css";
 
 const store = configureStore();
@@ -16,8 +16,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Home}/>
-        <Route path="products/:id" component={Product}/>
+        <IndexRoute component={ProductsContainer}/>
+        <Route path="products/:id" component={ProductContainer}/>
       </Route>
     </Router>
   </Provider>,

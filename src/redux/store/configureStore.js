@@ -3,7 +3,7 @@ import { routerReducer } from "react-router-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import createLogger from "redux-logger";
-import * as reducers from "./index";
+import * as reducers from "../modules/index";
 
 const logger = createLogger();
 

@@ -1,12 +1,9 @@
 import React from "react";
 import { IndexLink } from "react-router";
 import { Container, Grid, Icon, Menu, Segment } from "semantic-ui-react";
-import "./App.css";
 
 class App extends React.Component {
   render() {
-    const { children } = this.props;
-
     return (
       <Container>
         <Grid>
@@ -23,7 +20,7 @@ class App extends React.Component {
               </Menu>
             </Grid.Column>
           </Grid.Row>
-          {children}
+          {this.props.children}
           <Grid.Row>
             <Grid.Column>
               <Segment>

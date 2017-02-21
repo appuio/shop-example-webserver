@@ -1,5 +1,5 @@
 import "whatwg-fetch";
-import { checkStatus, parseJSON } from "../utils/utils";
+import { checkStatus, parseJSON } from "../../utils/fetch";
 
 // actions
 const REQUEST = 'app/products/REQUEST';
