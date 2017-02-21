@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Card, Grid, Input, List, Segment } from "semantic-ui-react";
+import { Card, Grid, Input, List, Loader, Message, Segment } from "semantic-ui-react";
 import { productsRequest } from "../state/actions";
 import Product from "./Product";
 
@@ -10,12 +10,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const products = [
-      { name: "Microsoft Windows 10", price: 250 },
-      { name: "Microsoft Office 2016", price: 100 },
-      { name: "Ubuntu 16.10", price: 0 },
-      { name: "NodeJS 0.10", price: 0 }
-    ];
+    const { loading, data, error } = this.props.products;
 
     return (
       <Grid.Row>
@@ -39,9 +34,14 @@ class Home extends React.Component {
           </Segment>
         </Grid.Column>
         <Grid.Column width={12}>
-          <Card.Group itemsPerRow={3}>
-            {products.map((product, index) => <Product key={index} index={index} {...product} />)}
-          </Card.Group>
+          {
+            !loading && data &&
+            <Card.Group itemsPerRow={3}>
+              {data.map((product, index) => <Product key={index} index={index} {...product} />)}
+            </Card.Group>
+          }
+          {loading && <Loader active inline="centered"/>}
+          {error && <Message error>Fail</Message>}
         </Grid.Column>
       </Grid.Row>
     );
