@@ -23,7 +23,7 @@ const reducer = (state = {
       return {
         ...state,
         loading: false,
-        items: action.payload.data
+        items: action.payload.items
       };
 
     case FAIL:
