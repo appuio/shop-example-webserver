@@ -20,14 +20,14 @@ const reducer = (state = {
       return {
         ...state,
         loading: false,
-        data: action.payload
+        data: action.payload.data
       };
 
     case FAIL:
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload.message
       };
 
     default:
