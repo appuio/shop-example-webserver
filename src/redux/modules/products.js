@@ -3,24 +3,27 @@ import { checkStatus, parseJSON } from "../../utils/fetch";
 
 // actions
 const REQUEST = 'app/products/REQUEST';
-export const RECEIVE = 'app/products/RECEIVE';
-export const FAIL = 'app/products/FAIL';
+const RECEIVE = 'app/products/RECEIVE';
+const FAIL = 'app/products/FAIL';
 
 // reducer
 const reducer = (state = {
   loading: false,
-  data: null,
+  items: [],
   error: null
 }, action) => {
   switch (action.type) {
     case REQUEST:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true
+      };
 
     case RECEIVE:
       return {
         ...state,
         loading: false,
-        data: action.payload.data
+        items: action.payload.data
       };
 
     case FAIL:

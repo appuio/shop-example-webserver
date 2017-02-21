@@ -2,9 +2,9 @@ import "whatwg-fetch";
 import { checkStatus, parseJSON } from "../../utils/fetch";
 
 // actions
-export const REQUEST = 'app/product/REQUEST';
-export const RECEIVE = 'app/product/RECEIVE';
-export const FAIL = 'app/product/FAIL';
+const REQUEST = 'app/product/REQUEST';
+const RECEIVE = 'app/product/RECEIVE';
+const FAIL = 'app/product/FAIL';
 
 // reducer
 const reducer = (state = {
@@ -14,7 +14,10 @@ const reducer = (state = {
 }, action) => {
   switch (action.type) {
     case REQUEST:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true
+      };
 
     case RECEIVE:
       return {
