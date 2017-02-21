@@ -19,7 +19,7 @@ const Product = ({ product: { loading, data, error } }) =>
                   What is a dog?
                 </Accordion.Title>
                 <Accordion.Content>
-                  <p>{title}</p>
+                  <p></p>
                 </Accordion.Content>
                 <Accordion.Title>
                   <Icon name='dropdown'/>
