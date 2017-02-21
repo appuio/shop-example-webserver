@@ -4,7 +4,7 @@ import { checkStatus, parseJSON } from "../../utils/fetch";
 // actions
 const REQUEST = 'app/products/REQUEST';
 export const RECEIVE = 'app/products/RECEIVE';
-export const FAIL = '/app/products/FAIL';
+export const FAIL = 'app/products/FAIL';
 
 // reducer
 const reducer = (state = {
