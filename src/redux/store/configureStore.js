@@ -15,11 +15,6 @@ export const configureStore = () => {
     }),
     composeWithDevTools(
       applyMiddleware(thunk, logger)
-      // applyMiddleware(thunk, epicMiddleware)
     )
   );
 };
-
-// import { createEpicMiddleware } from "redux-observable";
-// import { rootEpic } from "./actions";
-// const epicMiddleware = createEpicMiddleware(rootEpic);
