@@ -10,7 +10,7 @@ variables:
 
 test:
     stage: build
-    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
+    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn
     script:
         # install necessary application packages
         - yarn install --cache-folder=".yarn"
@@ -26,7 +26,7 @@ test:
 
 compile:
     stage: build
-    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
+    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn
     script:
         # install necessary application packages
         - yarn install --cache-folder=".yarn"
