@@ -1,7 +1,8 @@
 stages:
-    - test
-    - compile
     - build
+    - deploy-dev
+    - deploy-preprod
+    - deploy-prod
 
 cache:
     key: "$CI_PROJECT_ID"
@@ -10,18 +11,14 @@ cache:
         - node_modules/
 
 test:
-    stage: test
+    stage: build
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
         - yarn install --cache-folder=".yarn"
         # - yarn test
-    artifacts:
-        expire_in: "5min"
-        paths:
-            - ".yarn"
 
 compile:
-    stage: compile
+    stage: build
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
         - yarn install --cache-folder=".yarn"
@@ -35,7 +32,7 @@ compile:
         - tags
 
 build-dev:
-    stage: build
+    stage: deploy-dev
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
         - docker:dind
@@ -57,7 +54,7 @@ build-dev:
     environment: dev
 
 build-preprod:
-    stage: build
+    stage: deploy-preprod
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
         - docker:dind
@@ -77,7 +74,7 @@ build-preprod:
     environment: preprod
 
 build-prod:
-    stage: build
+    stage: deploy-prod
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     script:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
