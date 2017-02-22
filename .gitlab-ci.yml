@@ -33,7 +33,7 @@ compile:
     only:
         - master
 
-build:
+build-dev:
     stage: build
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
@@ -51,4 +51,35 @@ build:
     variables:
         OC_REGISTRY_URL: "registry.appuio.ch"
         OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
-    environment: staging
+    environment: dev
+
+build-preprod:
+    stage: build
+    image: registry.vshn.net/roland.schlaefli/docs_runner_oc
+    services:
+        - docker:dind
+    script:
+        - oc login $KUBE_URL --token=$KUBE_TOKEN
+        - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
+        - docker pull $OC_REGISTRY_IMAGE:stable
+        - docker build --cache-from $OC_REGISTRY_IMAGE:stable -t $OC_REGISTRY_IMAGE:stable .
+        - docker push $OC_REGISTRY_IMAGE:stable
+    only:
+        - master
+    tags:
+        - dockerbuild
+    variables:
+        OC_REGISTRY_URL: "registry.appuio.ch"
+        OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
+    environment: preprod
+
+build-prod:
+    stage: build
+    image: registry.vshn.net/roland.schlaefli/docs_runner_oc
+    script:
+        - oc login $KUBE_URL --token=$KUBE_TOKEN
+        - oc deploy
+    only:
+        - manual
+    environment: prod
+
