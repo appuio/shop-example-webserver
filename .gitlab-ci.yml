@@ -60,7 +60,7 @@ build-preprod:
     script:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
         - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
-        - docker pull $OC_REGISTRY_IMAGE:stable
+        # - docker pull $OC_REGISTRY_IMAGE:stable
         - docker build --cache-from $OC_REGISTRY_IMAGE:stable -t $OC_REGISTRY_IMAGE:stable .
         - docker push $OC_REGISTRY_IMAGE:stable
     only:
