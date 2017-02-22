@@ -6,7 +6,7 @@ stages:
 
 variables:
     OC_REGISTRY_URL: "registry.appuio.ch"
-    OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
+    OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/webserver"
 
 test:
     stage: build
