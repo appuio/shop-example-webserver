@@ -81,7 +81,7 @@ build-prod:
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     script:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
-        - oc deploy
+        - oc deploy webserver --latest --follow
     only:
         - manual
     environment: prod
