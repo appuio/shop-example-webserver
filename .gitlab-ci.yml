@@ -98,7 +98,7 @@ build-prod:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
         # tag the current stable image as live
         # triggers a deploy to prod via ImageStream
-        - oc tag $OC_REGISTRY_IMAGE:stable $OC_REGISTRY_IMAGE:live
+        - oc tag docs_example_webserver:stable docs_example_webserver:live
     only:
         - tags
     when: manual
