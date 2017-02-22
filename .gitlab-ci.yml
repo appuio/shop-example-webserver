@@ -4,12 +4,18 @@ stages:
     - deploy-preprod
     - deploy-prod
 
+variables:
+    OC_REGISTRY_URL: "registry.appuio.ch"
+    OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
+
 test:
     stage: build
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
+        # install necessary application packages
         - yarn install --cache-folder=".yarn"
-        # - yarn test
+        # test the application sources
+        - yarn test
     cache:
         key: "$CI_PROJECT_ID"
         paths:
@@ -20,7 +26,9 @@ compile:
     stage: build
     image: registry.vshn.net/roland.schlaefli/docs_runner_yarn2
     script:
+        # install necessary application packages
         - yarn install --cache-folder=".yarn"
+        # build the application sources
         - yarn build
     artifacts:
         expire_in: "5min"
@@ -42,10 +50,14 @@ build-dev:
     services:
         - docker:dind
     script:
+        # login to the service account to get access to the internal registry
         - oc login $KUBE_URL --token=$KUBE_TOKEN
         - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
+        # build the docker image and tag it as latest
+        # use the current latest image as a caching source
         - docker pull $OC_REGISTRY_IMAGE:latest
         - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
+        # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:latest
     only:
         - master
@@ -53,9 +65,6 @@ build-dev:
         - tags
     tags:
         - dockerbuild
-    variables:
-        OC_REGISTRY_URL: "registry.appuio.ch"
-        OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
 
 build-preprod:
     environment: preprod
@@ -64,26 +73,30 @@ build-preprod:
     services:
         - docker:dind
     script:
+        # login to the service account to get access to the internal registry
         - oc login $KUBE_URL --token=$KUBE_TOKEN
         - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
-        - docker pull $OC_REGISTRY_IMAGE:stable
-        - docker build --cache-from $OC_REGISTRY_IMAGE:stable -t $OC_REGISTRY_IMAGE:stable .
+        # build the docker image and tag it as stable
+        # use the current latest image as a caching source
+        - docker pull $OC_REGISTRY_IMAGE:latest
+        - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:stable .
+        # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:stable
     only:
         - tags
     tags:
         - dockerbuild
-    variables:
-        OC_REGISTRY_URL: "registry.appuio.ch"
-        OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/docs_example_webserver"
 
 build-prod:
     environment: prod
     stage: deploy-prod
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     script:
+        # login to the service account to get access to the CLI
         - oc login $KUBE_URL --token=$KUBE_TOKEN
-        - oc deploy webserver --latest --follow
+        # tag the current stable image as live
+        # triggers a deploy to prod via ImageStream
+        - oc tag $OC_REGISTRY_IMAGE:stable $OC_REGISTRY_IMAGE:live
     only:
         - tags
     when: manual
