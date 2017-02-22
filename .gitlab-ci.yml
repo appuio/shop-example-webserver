@@ -1,8 +1,6 @@
 stages:
     - build
-    - deploy-dev
-    - deploy-preprod
-    - deploy-prod
+    - deploy
 
 cache:
     key: "$CI_PROJECT_ID"
@@ -32,7 +30,7 @@ compile:
         - tags
 
 build-dev:
-    stage: deploy-dev
+    stage: deploy
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
         - docker:dind
@@ -54,7 +52,7 @@ build-dev:
     environment: dev
 
 build-preprod:
-    stage: deploy-preprod
+    stage: deploy
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
         - docker:dind
@@ -80,6 +78,7 @@ build-prod:
         - oc login $KUBE_URL --token=$KUBE_TOKEN
         - oc deploy webserver --latest --follow
     only:
-        - manual
+        - tags
+    when: manual
     environment: prod
 
