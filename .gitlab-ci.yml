@@ -57,7 +57,7 @@ build-dev:
         - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
         # build the docker image and tag it as latest
         # use the current latest image as a caching source
-        - docker pull $OC_REGISTRY_IMAGE:latest
+        # - docker pull $OC_REGISTRY_IMAGE:latest
         - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:latest
@@ -80,7 +80,7 @@ build-preprod:
         - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
         # build the docker image and tag it as stable
         # use the current latest image as a caching source
-        - docker pull $OC_REGISTRY_IMAGE:latest
+        # - docker pull $OC_REGISTRY_IMAGE:latest
         - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:stable .
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:stable
