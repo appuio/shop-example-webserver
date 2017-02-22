@@ -32,6 +32,7 @@ compile:
             - "build"
     only:
         - master
+        - tags
 
 build-dev:
     stage: build
