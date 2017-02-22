@@ -46,6 +46,8 @@ build-dev:
         - docker push $OC_REGISTRY_IMAGE:latest
     only:
         - master
+    except:
+        - tags
     tags:
         - dockerbuild
     variables:
@@ -65,7 +67,6 @@ build-preprod:
         - docker build --cache-from $OC_REGISTRY_IMAGE:stable -t $OC_REGISTRY_IMAGE:stable .
         - docker push $OC_REGISTRY_IMAGE:stable
     only:
-        - master
         - tags
     tags:
         - dockerbuild
