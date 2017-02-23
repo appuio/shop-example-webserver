@@ -45,7 +45,7 @@ const productsFail = (error) => ({ type: FAIL, payload: error });
 
 export const fetchProducts = () => (dispatch, getState) => {
   // if the products were already loaded, resolve and use cache
-  if (getState().products.data) {
+  if (getState().products.items.length > 0) {
     return Promise.resolve();
   }
 

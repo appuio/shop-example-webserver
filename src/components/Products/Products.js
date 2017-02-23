@@ -26,9 +26,9 @@ const Products = ({ products: { loading, items, error } }) =>
     <Grid.Column width={12}>
       {loading && <Loader active inline="centered"/>}
       {
-        !loading && items &&
+        !loading &&
         <Card.Group itemsPerRow={3}>
-          {items.map(product => <Product key={product.id} {...product} />)}
+          {items.map(item => <Product key={item.product.id} {...item} />)}
         </Card.Group>
       }
       {error && <Message error>Error: {error}</Message>}
