@@ -1,7 +1,7 @@
 import React from "react";
 import { Accordion, Button, Comment, Grid, Header, Icon, Label, Loader, Message, Segment } from "semantic-ui-react";
 
-const Product = ({ product: { loading, data, error }, addToCart }) => {
+const Product = ({ product: { loading, data, error }, inCart, addToCart }) => {
   return (
     <Grid.Row>
       <Grid.Column>
@@ -19,7 +19,7 @@ const Product = ({ product: { loading, data, error }, addToCart }) => {
                   <Label basic><Icon name="industry"/>{data.publisher.name}</Label>
                   <Label basic><Icon name="file text outline"/>{data.licenseType.name}</Label>
                   <Button content="Add to cart" floated="right" icon="in cart" labelPosition="right"
-                          onClick={(e) => addToCart()}/>
+                          disabled={inCart} onClick={(e) => addToCart()}/>
                 </Label.Group>
               </Grid.Column>
             </Grid.Row>
