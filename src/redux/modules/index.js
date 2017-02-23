@@ -1,4 +1,5 @@
 import products from "./products";
 import product from "./product";
+import cart from "./cart";
 
-export { products, product };
+export { cart, products, product };
