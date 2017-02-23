@@ -13,7 +13,7 @@ class App extends React.Component {
                 <Menu.Item as={IndexLink} to="/" activeClassName="active">
                   Home
                 </Menu.Item>
-                <Menu.Item as={Link} position="right" to="cart" activeClassName="active">
+                <Menu.Item as={Link} position="right" to="/cart" activeClassName="active">
                   <Icon name="cart"/>Cart
                 </Menu.Item>
               </Menu>
