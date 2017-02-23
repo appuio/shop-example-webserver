@@ -7,6 +7,7 @@ import { configureStore } from "./redux/store/configureStore";
 import App from "./containers/App";
 import ProductsContainer from "./containers/ProductsContainer";
 import ProductContainer from "./containers/ProductContainer";
+import CartContainer from "./containers/CartContainer";
 import "semantic-ui-css/semantic.css";
 
 const store = configureStore();
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={ProductsContainer}/>
         <Route path="products/:id" component={ProductContainer}/>
+        <Route path="cart" component={CartContainer}/>
       </Route>
     </Router>
   </Provider>,

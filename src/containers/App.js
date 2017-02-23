@@ -1,5 +1,5 @@
 import React from "react";
-import { IndexLink } from "react-router";
+import { IndexLink, Link } from "react-router";
 import { Container, Grid, Icon, Menu, Segment } from "semantic-ui-react";
 
 class App extends React.Component {
@@ -10,12 +10,11 @@ class App extends React.Component {
           <Grid.Row>
             <Grid.Column>
               <Menu inverted>
-                <Menu.Item>
-                  <IndexLink to="/">Home</IndexLink>
+                <Menu.Item as={IndexLink} to="/" activeClassName="active">
+                  Home
                 </Menu.Item>
-                <Menu.Item position="right">
-                  <Icon name="cart"/>
-                  Cart
+                <Menu.Item as={Link} position="right" to="cart" activeClassName="active">
+                  <Icon name="cart"/>Cart
                 </Menu.Item>
               </Menu>
             </Grid.Column>
