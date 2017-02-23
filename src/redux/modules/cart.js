@@ -43,9 +43,9 @@ const reducer = (state = {
 };
 
 // action creators
-const cartAddItem = (item) => ({ type: ITEM_ADD, payload: { item } });
-const cartRemoveItem = (index) => ({ type: ITEM_REMOVE, payload: { index } });
-const cartUpdateItem = (index, quantity) => ({ type: ITEM_UPDATE, payload: { index, quantity } });
+export const cartAddItem = (item) => ({ type: ITEM_ADD, payload: { item } });
+export const cartRemoveItem = (index) => ({ type: ITEM_REMOVE, payload: { index } });
+export const cartUpdateItem = (index, quantity) => ({ type: ITEM_UPDATE, payload: { index, quantity } });
 
 // export the reducer as default
 export default reducer;
