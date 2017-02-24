@@ -15,6 +15,9 @@ const reducer = (state = {
   items: [],
   filtered: [],
   filters: {
+    categories: [],
+    licenseTypes: [],
+    publishers: [],
     category: [],
     licenseType: [],
     publisher: [],
@@ -34,7 +37,13 @@ const reducer = (state = {
         ...state,
         loading: false,
         items: action.payload || [],
-        filtered: action.payload || []
+        filtered: action.payload || [],
+        filters: {
+          ...state.filters,
+          categories: action.payload.map(item => item.category.name).sort(),
+          licenseTypes: action.payload.map(item => item.licenseType.name).sort(),
+          publishers: action.payload.map(item => item.publisher.name).sort()
+        }
       }
 
     case FAIL:
