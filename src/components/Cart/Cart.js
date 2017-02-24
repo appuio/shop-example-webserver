@@ -3,7 +3,7 @@ import {Grid, Message, Segment, Table} from "semantic-ui-react"
 import _map from "lodash/map"
 import CartItem from "./CartItem"
 
-const Cart = ({cart}) => {
+const Cart = ({cart, removeItem, updateItem}) => {
   return (
     <Grid.Row>
       <Grid.Column>
@@ -13,19 +13,37 @@ const Cart = ({cart}) => {
               ?
               <Table>
                 <Table.Header>
-                  <Table.HeaderCell>
-                    Name
-                  </Table.HeaderCell>
-                  <Table.HeaderCell>
-                    Quantity
-                  </Table.HeaderCell>
-                  <Table.HeaderCell>
-                    Price
-                  </Table.HeaderCell>
+                  <Table.Row>
+                    <Table.HeaderCell>
+                      Name
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      Quantity
+                    </Table.HeaderCell>
+                    <Table.HeaderCell>
+                      Price
+                    </Table.HeaderCell>
+                    <Table.HeaderCell />
+                  </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {_map(cart.items, item => <CartItem {...item}/>)}
+                  {_map(cart.items, item =>
+                    <CartItem
+                      key={item.uuid}
+                      {...item}
+                      removeItem={() => removeItem(item.uuid)}
+                      updateItem={(quantity) => updateItem(item.uuid, quantity)}
+                    />
+                  )}
                 </Table.Body>
+                <Table.Footer>
+                  <Table.Row>
+                    <Table.HeaderCell />
+                    <Table.HeaderCell />
+                    <Table.HeaderCell><strong>{cart.sum} CHF</strong></Table.HeaderCell>
+                    <Table.HeaderCell />
+                  </Table.Row>
+                </Table.Footer>
               </Table>
               :
               <Message info>Your cart is currently empty...</Message>
