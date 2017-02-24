@@ -1,4 +1,5 @@
 import _forEach from "lodash/forEach"
+import _includes from "lodash/includes"
 import {checkStatus, parseJSON} from "../../utils/fetch"
 
 // actions
@@ -14,9 +15,9 @@ const reducer = (state = {
   items: [],
   filtered: [],
   filters: {
-    category: null,
-    licenseType: null,
-    publisher: null,
+    category: [],
+    licenseType: [],
+    publisher: [],
     query: null
   },
   error: null
@@ -56,7 +57,7 @@ const reducer = (state = {
       // filter the products by types (category, publisher, licenseType)
       _forEach(['category', 'publisher', 'licenseType'], type =>
         // check if either the filter wasn't set or the item matches the filter
-        filtered = filtered.filter(item => item[type].name === filters[type] || !filters[type])
+        filtered = filtered.filter(item => _includes(filters[type], item[type].name) || filters[type].length === 0)
       )
 
       // filter the products by query

@@ -5,9 +5,9 @@ const initialState = {
   items: [],
   filtered: [],
   filters: {
-    category: null,
-    licenseType: null,
-    publisher: null,
+    category: [],
+    licenseType: [],
+    publisher: [],
     query: null
   },
   error: null
@@ -31,6 +31,10 @@ const product2 = {
 const receivedState = {
   ...initialState,
   items: [
+    product1,
+    product2
+  ],
+  filtered: [
     product1,
     product2
   ]
@@ -62,6 +66,10 @@ describe('products - reducer', () => {
       items: [
         {name: "testing", price: 100},
         {name: "tester", price: 200}
+      ],
+      filtered: [
+        {name: "testing", price: 100},
+        {name: "tester", price: 200}
       ]
     })
   })
@@ -74,46 +82,57 @@ describe('products - reducer', () => {
   })
 
   it('should handle FILTER_APPLY', () => {
-    expect(reducer(receivedState, productsApplyFilter("publisher", "Microsoft"))).toEqual({
+    expect(reducer(receivedState, productsApplyFilter("publisher", ["Microsoft"]))).toEqual({
       ...receivedState,
       filters: {
         ...receivedState.filters,
-        publisher: "Microsoft"
+        publisher: ["Microsoft"]
       },
       filtered: [
         product1
       ]
     })
 
-    expect(reducer(receivedState, productsApplyFilter("licenseType", "Single-User"))).toEqual({
+    expect(reducer(receivedState, productsApplyFilter("licenseType", ["Single-User"]))).toEqual({
       ...receivedState,
       filters: {
         ...receivedState.filters,
-        licenseType: "Single-User"
+        licenseType: ["Single-User"]
       },
       filtered: [
         product1
       ]
     })
 
-    expect(reducer(receivedState, productsApplyFilter("category", "Continuous Integration"))).toEqual({
+    expect(reducer(receivedState, productsApplyFilter("category", ["Continuous Integration"]))).toEqual({
       ...receivedState,
       filters: {
         ...receivedState.filters,
-        category: "Continuous Integration"
+        category: ["Continuous Integration"]
       },
       filtered: [
         product2
       ]
     })
 
-    expect(reducer(receivedState, productsApplyFilter("category", "Blabla"))).toEqual({
+    expect(reducer(receivedState, productsApplyFilter("category", ["Blabla"]))).toEqual({
       ...receivedState,
       filters: {
         ...receivedState.filters,
-        category: "Blabla"
+        category: ["Blabla"]
       },
       filtered: []
+    })
+
+    expect(reducer(receivedState, productsApplyFilter("publisher", ["Blabla", "Microsoft"]))).toEqual({
+      ...receivedState,
+      filters: {
+        ...receivedState.filters,
+        publisher: ["Blabla", "Microsoft"]
+      },
+      filtered: [
+        product1
+      ]
     })
   })
 })
