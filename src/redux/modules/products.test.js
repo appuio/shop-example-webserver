@@ -84,6 +84,37 @@ describe('products - reducer', () => {
         product1
       ]
     })
+
+    expect(reducer(receivedState, productsApplyFilter("licenseType", "Single-User"))).toEqual({
+      ...receivedState,
+      filters: {
+        ...receivedState.filters,
+        licenseType: "Single-User"
+      },
+      filtered: [
+        product1
+      ]
+    })
+
+    expect(reducer(receivedState, productsApplyFilter("category", "Continuous Integration"))).toEqual({
+      ...receivedState,
+      filters: {
+        ...receivedState.filters,
+        category: "Continuous Integration"
+      },
+      filtered: [
+        product2
+      ]
+    })
+
+    expect(reducer(receivedState, productsApplyFilter("category", "Blabla"))).toEqual({
+      ...receivedState,
+      filters: {
+        ...receivedState.filters,
+        category: "Blabla"
+      },
+      filtered: []
+    })
   })
 })
 
