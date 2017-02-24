@@ -1,3 +1,4 @@
+import _forEach from "lodash/forEach"
 import {checkStatus, parseJSON} from "../../utils/fetch"
 
 // actions
@@ -5,10 +6,19 @@ const REQUEST = 'app/products/REQUEST'
 const RECEIVE = 'app/products/RECEIVE'
 const FAIL = 'app/products/FAIL'
 
+const FILTER_APPLY = 'app/products/FILTER_APPLY'
+
 // reducer
 const reducer = (state = {
   loading: false,
   items: [],
+  filtered: [],
+  filters: {
+    category: null,
+    licenseType: null,
+    publisher: null,
+    query: null
+  },
   error: null
 }, action) => {
   switch (action.type) {
@@ -32,6 +42,36 @@ const reducer = (state = {
         error: action.payload
       }
 
+    case FILTER_APPLY:
+      // hydrate the filters object with the newly applied filter
+      const filters = {
+        ...state.filters,
+        [action.payload.type]: action.payload.filter
+      }
+
+      // initially set the array of filtered products to the full items array
+      let filtered = state.items;
+
+      // filter the products by types (category, publisher, licenseType)
+      _forEach(['category', 'publisher', 'licenseType'], type =>
+        // check if either the filter wasn't set or the item matches the filter
+        filtered = filtered.filter(item => item[type].name === filters[type] || !filters[type])
+      )
+
+      // filter the products by query
+      if (filters.query) {
+        // TODO
+      }
+
+      // map the filtered objects to their uuid
+      // filtered = filtered.map(item => item.product.uuid)
+
+      return {
+        ...state,
+        filters,
+        filtered
+      }
+
     default:
       return state
   }
@@ -41,6 +81,7 @@ const reducer = (state = {
 export const productsRequest = () => ({type: REQUEST})
 export const productsReceive = (products) => ({type: RECEIVE, payload: products})
 export const productsFail = (message) => ({type: FAIL, payload: message})
+export const productsApplyFilter = (type, filter) => ({type: FILTER_APPLY, payload: {type, filter}})
 
 export const fetchProducts = () => (dispatch, getState, {fetch}) => {
   // if the products were already loaded, resolve and use cache

@@ -1,13 +1,39 @@
-import reducer, {productsRequest, productsReceive, productsFail} from "./products"
+import reducer, {productsApplyFilter, productsRequest, productsReceive, productsFail} from "./products"
 
 const initialState = {
   loading: false,
   items: [],
+  filtered: [],
+  filters: {
+    category: null,
+    licenseType: null,
+    publisher: null,
+    query: null
+  },
   error: null
 };
 const requestedState = {
   ...initialState,
   loading: true
+}
+const product1 = {
+  product: {uuid: "1234-abcd", name: "Windows 10 Enterprise", price: 250},
+  category: {id: 1, name: "Operating Systems"},
+  licenseType: {id: 23, name: "Single-User"},
+  publisher: {id: 45, name: "Microsoft"}
+}
+const product2 = {
+  product: {uuid: "abcd-4567", name: "Gitlab EE", price: 1000},
+  category: {id: 12, name: "Continuous Integration"},
+  licenseType: {id: 43, name: "Volume licensing"},
+  publisher: {id: 22, name: "Gitlab"}
+}
+const receivedState = {
+  ...initialState,
+  items: [
+    product1,
+    product2
+  ]
 }
 
 describe('products - reducer', () => {
@@ -44,6 +70,19 @@ describe('products - reducer', () => {
     expect(reducer(requestedState, productsFail("failed"))).toEqual({
       ...initialState,
       error: "failed"
+    })
+  })
+
+  it('should handle FILTER_APPLY', () => {
+    expect(reducer(receivedState, productsApplyFilter("publisher", "Microsoft"))).toEqual({
+      ...receivedState,
+      filters: {
+        ...receivedState.filters,
+        publisher: "Microsoft"
+      },
+      filtered: [
+        product1
+      ]
     })
   })
 })
