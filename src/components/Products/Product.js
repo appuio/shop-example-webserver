@@ -3,10 +3,10 @@ import {Link} from "react-router"
 import {Card, Icon, Label} from "semantic-ui-react"
 
 const Product = ({product, category, publisher, licenseType}) =>
-  <Card>
+  <Card as={Link} to={`/products/${product.id}`}>
     <Card.Content>
       <Card.Header>
-        <Link to={`/products/${product.id}`}>{product.name}</Link>
+        {product.name}
       </Card.Header>
       <Card.Description>
         <p>{product.description}</p>
