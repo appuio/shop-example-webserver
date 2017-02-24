@@ -5,6 +5,9 @@ const initialState = {
   items: [],
   filtered: [],
   filters: {
+    categories: [],
+    licenseTypes: [],
+    publishers: [],
     category: [],
     licenseType: [],
     publisher: [],
@@ -37,7 +40,13 @@ const receivedState = {
   filtered: [
     product1,
     product2
-  ]
+  ],
+  filters: {
+    ...initialState.filters,
+    categories: ["Continuous Integration", "Operating Systems"],
+    licenseTypes: ["Single-User", "Volume license"],
+    publishers: ["Gitlab", "Microsoft"]
+  }
 }
 
 describe('products - reducer', () => {
@@ -58,19 +67,25 @@ describe('products - reducer', () => {
 
     // if some products have been passed
     expect(reducer(requestedState, productsReceive([
-      {name: "testing", price: 100},
-      {name: "tester", price: 200}
+      product1,
+      product2
     ]))).toEqual({
       ...initialState,
       loading: false,
       items: [
-        {name: "testing", price: 100},
-        {name: "tester", price: 200}
+        product1,
+        product2
       ],
       filtered: [
-        {name: "testing", price: 100},
-        {name: "tester", price: 200}
-      ]
+        product1,
+        product2
+      ],
+      filters: {
+        ...initialState.filters,
+        categories: ["Continuous Integration", "Operating Systems"],
+        licenseTypes: ["Single-User", "Volume licensing"],
+        publishers: ["Gitlab", "Microsoft"]
+      }
     })
   })
 
