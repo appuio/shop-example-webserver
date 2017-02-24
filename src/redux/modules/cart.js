@@ -30,17 +30,17 @@ const reducer = (state = {
         items,
         size: _size(items),
         sum: calculateSum(items)
-      };
+      }
     }
 
     case ITEM_UPDATE: {
       // if an invalid quantity has been provided, return the state
       if (isNaN(action.payload.quantity))
-        return state;
+        return state
 
       // if a negative or zero quantity has been provided, delete the item
       if (action.payload.quantity <= 0) {
-        const items = _omitBy(state.items, item => item.uuid === action.payload.uuid);
+        const items = _omitBy(state.items, item => item.uuid === action.payload.uuid)
 
         return {
           ...state,
@@ -57,7 +57,7 @@ const reducer = (state = {
           ...state.items[action.payload.uuid],
           quantity: action.payload.quantity
         }
-      };
+      }
 
       return {
         ...state,
@@ -70,11 +70,11 @@ const reducer = (state = {
     default:
       return state
   }
-};
+}
 
 // action creators
-export const cartAddItem = (item) => ({ type: ITEM_ADD, payload: { item } })
-export const cartUpdateItem = (uuid, quantity) => ({ type: ITEM_UPDATE, payload: { uuid, quantity } })
+export const cartAddItem = (item) => ({type: ITEM_ADD, payload: {item}})
+export const cartUpdateItem = (uuid, quantity) => ({type: ITEM_UPDATE, payload: {uuid, quantity}})
 export const cartRemoveItem = (uuid) => ({type: ITEM_UPDATE, payload: {uuid, quantity: 0}})
 
 // export the reducer as default

@@ -1,9 +1,9 @@
-import React from "react";
-import { Grid, Message, Segment, Table } from "semantic-ui-react";
-import _map from "lodash/map";
-import CartItem from "./CartItem";
+import React from "react"
+import {Grid, Message, Segment, Table} from "semantic-ui-react"
+import _map from "lodash/map"
+import CartItem from "./CartItem"
 
-const Cart = ({ cart }) => {
+const Cart = ({cart}) => {
   return (
     <Grid.Row>
       <Grid.Column>
@@ -33,7 +33,7 @@ const Cart = ({ cart }) => {
         </Segment>
       </Grid.Column>
     </Grid.Row>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart

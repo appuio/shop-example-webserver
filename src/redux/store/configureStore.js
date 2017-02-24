@@ -1,11 +1,11 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { routerReducer } from "react-router-redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import createLogger from "redux-logger";
-import * as reducers from "../modules/index";
+import {applyMiddleware, combineReducers, createStore} from "redux"
+import {routerReducer} from "react-router-redux"
+import {composeWithDevTools} from "redux-devtools-extension"
+import thunk from "redux-thunk"
+import createLogger from "redux-logger"
+import * as reducers from "../modules/index"
 
-const logger = createLogger();
+const logger = createLogger()
 
 export const configureStore = () => {
   return createStore(
@@ -16,5 +16,5 @@ export const configureStore = () => {
     composeWithDevTools(
       applyMiddleware(thunk, logger)
     )
-  );
-};
+  )
+}

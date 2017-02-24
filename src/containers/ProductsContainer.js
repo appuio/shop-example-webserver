@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchProducts } from "../redux/modules/products";
-import Products from "../components/Products/Products";
+import React, {Component} from "react"
+import {connect} from "react-redux"
+import {fetchProducts} from "../redux/modules/products"
+import Products from "../components/Products/Products"
 
 class ProductsContainer extends Component {
   componentDidMount() {
-    const { fetch } = this.props;
+    const {fetch} = this.props
 
-    fetch();
+    fetch()
   }
 
   render() {
-    return <Products products={this.props.products}/>;
+    return <Products products={this.props.products}/>
   }
 }
 
@@ -22,4 +22,4 @@ export default connect(
   dispatch => ({
     fetch: () => dispatch(fetchProducts())
   })
-)(ProductsContainer);
+)(ProductsContainer)

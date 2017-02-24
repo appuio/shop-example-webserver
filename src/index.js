@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { browserHistory, IndexRoute, Route, Router } from "react-router";
-import { syncHistoryWithStore } from "react-router-redux";
-import { configureStore } from "./redux/store/configureStore";
-import App from "./containers/App";
-import ProductsContainer from "./containers/ProductsContainer";
-import ProductContainer from "./containers/ProductContainer";
-import CartContainer from "./containers/CartContainer";
-import "semantic-ui-css/semantic.css";
+import React from "react"
+import ReactDOM from "react-dom"
+import {Provider} from "react-redux"
+import {browserHistory, IndexRoute, Route, Router} from "react-router"
+import {syncHistoryWithStore} from "react-router-redux"
+import {configureStore} from "./redux/store/configureStore"
+import App from "./containers/App"
+import ProductsContainer from "./containers/ProductsContainer"
+import ProductContainer from "./containers/ProductContainer"
+import CartContainer from "./containers/CartContainer"
+import "semantic-ui-css/semantic.css"
 
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const store = configureStore()
+const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -24,4 +24,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root')
-);
+)

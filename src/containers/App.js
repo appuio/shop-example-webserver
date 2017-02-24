@@ -1,6 +1,6 @@
-import React from "react";
-import { IndexLink, Link } from "react-router";
-import { Container, Grid, Icon, Menu, Segment } from "semantic-ui-react";
+import React from "react"
+import {IndexLink, Link} from "react-router"
+import {Container, Grid, Icon, Menu, Segment} from "semantic-ui-react"
 
 class App extends React.Component {
   render() {
@@ -29,8 +29,8 @@ class App extends React.Component {
           </Grid.Row>
         </Grid>
       </Container>
-    );
+    )
   }
 }
 
-export default App;
+export default App

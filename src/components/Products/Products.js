@@ -1,8 +1,8 @@
-import React from "react";
-import { Card, Grid, Input, List, Loader, Message, Segment } from "semantic-ui-react";
-import Product from "./Product";
+import React from "react"
+import {Card, Grid, Input, List, Loader, Message, Segment} from "semantic-ui-react"
+import Product from "./Product"
 
-const Products = ({ products: { loading, items, error } }) =>
+const Products = ({products: {loading, items, error}}) =>
   <Grid.Row>
     <Grid.Column width={4}>
       <Segment>
@@ -33,6 +33,6 @@ const Products = ({ products: { loading, items, error } }) =>
       }
       {error && <Message error>Error: {error}</Message>}
     </Grid.Column>
-  </Grid.Row>;
+  </Grid.Row>
 
-export default Products;
+export default Products

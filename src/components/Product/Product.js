@@ -1,7 +1,7 @@
-import React from "react";
-import { Accordion, Button, Comment, Grid, Header, Icon, Label, Loader, Message, Segment } from "semantic-ui-react";
+import React from "react"
+import {Accordion, Button, Comment, Grid, Header, Icon, Label, Loader, Message, Segment} from "semantic-ui-react"
 
-const Product = ({ product: { loading, data, error }, inCart, addToCart }) => {
+const Product = ({product: {loading, data, error}, inCart, addToCart}) => {
   return (
     <Grid.Row>
       <Grid.Column>
@@ -130,7 +130,7 @@ const Product = ({ product: { loading, data, error }, inCart, addToCart }) => {
         {error && <Message error>Error: {error}</Message>}
       </Grid.Column>
     </Grid.Row>
-  );
-};
+  )
+}
 
-export default Product;
+export default Product

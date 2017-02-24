@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router";
-import { Card, Icon, Label } from "semantic-ui-react";
+import React from "react"
+import {Link} from "react-router"
+import {Card, Icon, Label} from "semantic-ui-react"
 
-const Product = ({ product, category, publisher, licenseType }) =>
+const Product = ({product, category, publisher, licenseType}) =>
   <Card>
     <Card.Content>
       <Card.Header>
@@ -13,7 +13,7 @@ const Product = ({ product, category, publisher, licenseType }) =>
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <span style={{ color: "red", fontSize: 20 }}>{product.price} CHF</span>
+      <span style={{color: "red", fontSize: 20}}>{product.price} CHF</span>
     </Card.Content>
     <Card.Content extra>
       <Label.Group size="small">
@@ -22,6 +22,6 @@ const Product = ({ product, category, publisher, licenseType }) =>
         <Label basic><Icon name="file text outline"/>{licenseType.name}</Label>
       </Label.Group>
     </Card.Content>
-  </Card>;
+  </Card>
 
-export default Product;
+export default Product

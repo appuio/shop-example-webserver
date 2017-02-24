@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Cart from "../components/Cart/Cart";
+import React, {Component} from "react"
+import {connect} from "react-redux"
+import Cart from "../components/Cart/Cart"
 
 class ProductsContainer extends Component {
   render() {
-    return <Cart cart={this.props.cart}/>;
+    return <Cart cart={this.props.cart}/>
   }
 }
 
@@ -13,4 +13,4 @@ export default connect(
     cart: state.cart
   }),
   dispatch => ({})
-)(ProductsContainer);
+)(ProductsContainer)
