@@ -1,4 +1,4 @@
-import reducer, {calculateSum, cartAddItem, cartUpdateItem} from "../../src/redux/modules/cart"
+import reducer, {calculateSum, cartAddItem, cartUpdateItem} from "./cart"
 
 const item1 = {
   uuid: "testing123",
@@ -36,6 +36,9 @@ const withTwoItems = {
 
 describe('cart - utils', () => {
   it('should calculate the sum correctly (calculateSum)', () => {
+    // no items should return a sum of 0
+    expect(calculateSum({})).toEqual(0)
+
     // calculate the sum with valid items
     expect(calculateSum({
       1: {price: 7, quantity: 1},
