@@ -32,7 +32,8 @@ const reducer = (state = {
       return {
         ...state,
         loading: false,
-        items: action.payload || []
+        items: action.payload || [],
+        filtered: action.payload || []
       }
 
     case FAIL:
