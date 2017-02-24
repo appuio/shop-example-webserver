@@ -38,9 +38,9 @@ const reducer = (state = {
 }
 
 // action creators
-const productRequest = (id) => ({type: REQUEST, payload: id})
-const productReceive = (product) => ({type: RECEIVE, payload: product})
-const productFail = (error) => ({type: FAIL, payload: error})
+export const productRequest = (id) => ({type: REQUEST, payload: id})
+export const productReceive = (product) => ({type: RECEIVE, payload: product})
+export const productFail = (error) => ({type: FAIL, payload: error})
 
 export const fetchProduct = (id) => (dispatch, getState, {fetch}) => {
   // if the product was already loaded, resolve and use cache
