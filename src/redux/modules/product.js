@@ -23,14 +23,14 @@ const reducer = (state = {
       return {
         ...state,
         loading: false,
-        data: action.payload.data
+        data: action.payload
       }
 
     case FAIL:
       return {
         ...state,
         loading: false,
-        error: action.payload.message
+        error: action.payload
       }
 
     default:
@@ -56,8 +56,8 @@ export const fetchProduct = (id) => (dispatch, getState) => {
   fetch(`https://api-vshn-demoapp1.appuioapp.ch/products/${id}`)
     .then(checkStatus)
     .then(parseJSON)
-    .then(json => dispatch(productReceive(json)))
-    .catch(error => dispatch(productFail(error)))
+    .then(json => dispatch(productReceive(json.data)))
+    .catch(error => dispatch(productFail(error.message)))
 }
 
 // export the reducer as default
