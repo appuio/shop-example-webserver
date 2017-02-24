@@ -4,6 +4,10 @@ import _size from "lodash/size"
 
 // utils
 export const calculateSum = (items) => {
+  // if there are no items, return 0
+  if (_size(items) === 0)
+    return 0
+
   // reduce all the items in the cart to a total sum
   return _map(items, item => (item.price * item.quantity) || 0).reduce((a, b) => a + b)
 }
