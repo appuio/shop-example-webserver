@@ -1,4 +1,3 @@
-import "whatwg-fetch"
 import {checkStatus, parseJSON} from "../../utils/fetch"
 
 // actions
@@ -43,7 +42,7 @@ const productRequest = (id) => ({type: REQUEST, payload: id})
 const productReceive = (product) => ({type: RECEIVE, payload: product})
 const productFail = (error) => ({type: FAIL, payload: error})
 
-export const fetchProduct = (id) => (dispatch, getState) => {
+export const fetchProduct = (id) => (dispatch, getState, {fetch}) => {
   // if the product was already loaded, resolve and use cache
   if (getState().product.data && getState().product.data.id === id) {
     return Promise.resolve()
