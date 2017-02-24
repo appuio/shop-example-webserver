@@ -1,27 +1,32 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
-import {browserHistory, IndexRoute, Route, Router} from "react-router"
+import {browserHistory, Router} from "react-router"
 import {syncHistoryWithStore} from "react-router-redux"
 import {configureStore} from "./redux/store/configureStore"
-import App from "./containers/App"
-import ProductsContainer from "./containers/ProductsContainer"
-import ProductContainer from "./containers/ProductContainer"
-import CartContainer from "./containers/CartContainer"
+import routes from "./routes"
 import "semantic-ui-css/semantic.css"
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
+const rootEl = document.getElementById('root');
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={ProductsContainer}/>
-        <Route path="products/:id" component={ProductContainer}/>
-        <Route path="cart" component={CartContainer}/>
-      </Route>
-    </Router>
+    <Router history={history} routes={routes}/>
   </Provider>,
-  document.getElementById('root')
+  rootEl
 )
+
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    const nextRoutes = require('./routes').default
+    ReactDOM.render(
+      <Provider store={store}>
+        <Router history={history} routes={nextRoutes}/>
+      </Provider>,
+      rootEl
+    )
+  })
+}
