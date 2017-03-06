@@ -110,8 +110,8 @@ build-prod:
         # login to the service account to get access to the CLI
         - oc login $KUBE_URL --token=$KUBE_TOKEN
         # update the configuration in OpenShift
-        - sed -i 's;webserver-preprod;webserver-prod;g' docker/openshift/*
-        - sed -i 's;webserver:stable;webserver:live;g' docker/openshift/*
+        - sed -i 's;webserver-staging;webserver-prod;g' docker/openshift/*
+        - sed -i 's;webserver:latest;webserver:live;g' docker/openshift/*
         - sed -i 's;172.30.215.173;172.30.31.200;g' docker/openshift/*
         - oc replace -f docker/openshift -R
         # tag the current stable image as live
