@@ -20,6 +20,7 @@ spec:
       maxUnavailable: 25%
       maxSurge: 25%
     resources:
+    triggers:
   replicas: 1
   test: false
   selector:
