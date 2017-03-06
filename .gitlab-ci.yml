@@ -61,7 +61,7 @@ build-dev:
         - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
         # update the configuration in OpenShift
         # do this before pushing such that config will be up to date on deployment
-        - oc repalce -f docker/openshift/deployment.yaml
+        - oc replace -f docker/openshift/deployment.yaml
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:latest
     only:
