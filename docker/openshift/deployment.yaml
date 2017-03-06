@@ -24,7 +24,16 @@ spec:
     resources:
   triggers:
     -
-      type: ConfigChange
+      type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - webserver
+        from:
+          kind: ImageStreamTag
+          namespace: vshn-demoapp1
+          name: 'webserver:latest'
+        lastTriggeredImage: '172.30.1.1:5000/vshn-demoapp1/webserver@sha256:40ac8be39cf916d14a95943acf427ceef77964e61f4e7e57c43ff158b6fcde6b'
   replicas: 1
   test: false
   selector:
