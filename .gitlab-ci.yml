@@ -60,10 +60,11 @@ build-dev:
         - docker pull $OC_REGISTRY_IMAGE:latest
         - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
         # update the configuration in OpenShift
-        # do this before pushing such that config will be up to date on deployment
         - oc replace -f docker/openshift/deployment.yaml
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:latest
+        # trigger a deployment
+        - oc deploy webserver --latest
     only:
         - master
     except:

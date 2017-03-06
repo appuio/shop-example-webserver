@@ -22,18 +22,6 @@ spec:
       maxUnavailable: 25%
       maxSurge: 25%
     resources:
-  triggers:
-    -
-      type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-          - webserver
-        from:
-          kind: ImageStreamTag
-          namespace: vshn-demoapp1
-          name: 'webserver:latest'
-        lastTriggeredImage: '172.30.1.1:5000/vshn-demoapp1/webserver@sha256:208ea2d1268ade8bdf79370281e5658bc1be4705b065821bab7633004ccf1008'
   replicas: 1
   test: false
   selector:
@@ -59,10 +47,10 @@ spec:
           resources:
             limits:
               cpu: 200m
-              memory: 512Mi
+              memory: 256Mi
             requests:
               cpu: 200m
-              memory: 512Mi
+              memory: 256Mi
           livenessProbe:
             httpGet:
               path: /
