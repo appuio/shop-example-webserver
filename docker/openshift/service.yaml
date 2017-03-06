@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+  namespace: vshn-demoapp1
+  selfLink: /api/v1/namespaces/vshn-demoapp1/services/webserver
+  uid: 54270535-f518-11e6-b5f7-fa163e3ec73a
+  labels:
+    app: webserver
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+spec:
+  ports:
+    -
+      name: 9000-tcp
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+  selector:
+    deploymentconfig: webserver
+  portalIP: 172.30.208.236
+  clusterIP: 172.30.208.236
+  type: ClusterIP
+  sessionAffinity: None
+status:
+  loadBalancer:
+
