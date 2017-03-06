@@ -62,7 +62,7 @@ build-dev:
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:latest
         # update the configuration in OpenShift
-        - oc update -f docker/openshift/deployment.yaml
+        - oc replace -f docker/openshift/deployment.yaml
     only:
         - master
     except:
