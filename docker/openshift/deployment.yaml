@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: webserver
+  namespace: vshn-demoapp1
+  selfLink: /oapi/v1/namespaces/vshn-demoapp1/deploymentconfigs/webserver
+  uid: 54221783-f518-11e6-b5f7-fa163e3ec73a
+  resourceVersion: '35790899'
+  generation: 36
+  creationTimestamp: '2017-02-17T13:52:32Z'
+  labels:
+    app: webserver
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources:
+  triggers:
+    -
+      type: ConfigChange
+    -
+      type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - webserver
+        from:
+          kind: ImageStreamTag
+          namespace: vshn-demoapp1
+          name: 'webserver:latest'
+        lastTriggeredImage: '172.30.1.1:5000/vshn-demoapp1/webserver@sha256:40ac8be39cf916d14a95943acf427ceef77964e61f4e7e57c43ff158b6fcde6b'
+  replicas: 1
+  test: false
+  selector:
+    app: webserver
+    deploymentconfig: webserver
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: webserver
+        deploymentconfig: webserver
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+    spec:
+      containers:
+        -
+          name: webserver
+          image: '172.30.1.1:5000/vshn-demoapp1/webserver@sha256:40ac8be39cf916d14a95943acf427ceef77964e61f4e7e57c43ff158b6fcde6b'
+          ports:
+            -
+              containerPort: 9000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext:
+status:
+  latestVersion: 34
+  observedGeneration: 36
+  replicas: 1
+  updatedReplicas: 1
+  availableReplicas: 1
+  details:
+    message: 'caused by a config change'
+    causes:
+      -
+        type: ConfigChange
