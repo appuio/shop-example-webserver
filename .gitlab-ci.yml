@@ -64,7 +64,7 @@ build-staging:
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:latest
         # trigger a deployment
-        - oc deploy webserver --latest
+        - oc deploy webserver-staging --latest
     only:
         - master
     except:
