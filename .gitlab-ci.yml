@@ -65,6 +65,9 @@ build-dev:
         - docker push $OC_REGISTRY_IMAGE:latest
         # trigger a deployment
         - oc deploy webserver --latest
+        # debug
+        - echo $CI_BUILD_REF
+        - git log --format="%H" -n 1 docker/openshift/deployment.yaml
     only:
         - master
     except:
