@@ -1,6 +1,6 @@
 stages:
     - build
-    - deploy-dev
+    - deploy-staging
     - deploy-preprod
     - deploy-prod
 
@@ -45,9 +45,9 @@ compile:
         - master
         - tags
 
-build-dev:
-    environment: dev
-    stage: deploy-dev
+build-staging:
+    environment: webserver-staging
+    stage: deploy-staging
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
         - docker:dind
@@ -65,8 +65,6 @@ build-dev:
         - docker push $OC_REGISTRY_IMAGE:latest
         # trigger a deployment
         - oc deploy webserver --latest
-        # debug
-        - echo $CI_ENVIRONMENT_SLUG
     only:
         - master
     except:
@@ -75,7 +73,7 @@ build-dev:
         - dockerbuild
 
 build-preprod:
-    environment: preprod
+    environment: webserver-preprod
     stage: deploy-preprod
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     services:
@@ -96,7 +94,7 @@ build-preprod:
         - dockerbuild
 
 build-prod:
-    environment: prod
+    environment: webserver-prod
     stage: deploy-prod
     image: registry.vshn.net/roland.schlaefli/docs_runner_oc
     script:
