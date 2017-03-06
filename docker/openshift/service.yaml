@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: webserver-staging
   namespace: vshn-demoapp1
-  selfLink: /api/v1/namespaces/vshn-demoapp1/services/webserver-staging
-  uid: 7a1f8911-0274-11e7-a2d1-fa163ed95dac
-  creationTimestamp: '2017-03-06T13:54:54Z'
   labels:
     app: webserver-staging
   annotations:

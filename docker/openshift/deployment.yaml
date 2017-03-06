@@ -3,9 +3,6 @@ kind: DeploymentConfig
 metadata:
   name: webserver-staging
   namespace: vshn-demoapp1
-  selfLink: /oapi/v1/namespaces/vshn-demoapp1/deploymentconfigs/webserver-staging
-  uid: 7a15e420-0274-11e7-a314-fa163ec9e279
-  creationTimestamp: '2017-03-06T13:54:54Z'
   labels:
     app: webserver-staging
   annotations:
@@ -20,7 +17,17 @@ spec:
       maxUnavailable: 25%
       maxSurge: 25%
     resources:
-    triggers:
+  triggers:
+    -
+      type: ImageChange
+      imageChangeParams:
+        automatic: false
+        containerNames:
+          - webserver-staging
+        from:
+          kind: ImageStreamTag
+          namespace: vshn-demoapp1c
+          name: 'webserver:latest'  
   replicas: 1
   test: false
   selector:
@@ -39,7 +46,7 @@ spec:
       containers:
         -
           name: webserver-staging
-          image: '172.30.1.1:5000/vshn-demoapp1/webserver@sha256:208ea2d1268ade8bdf79370281e5658bc1be4705b065821bab7633004ccf1008'
+          image: "172.30.1.1:5000/vshn-demoapp1/webserver:latest"
           ports:
             -
               containerPort: 9000

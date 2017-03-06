@@ -3,9 +3,6 @@ kind: Route
 metadata:
   name: webserver-staging
   namespace: vshn-demoapp1
-  selfLink: /oapi/v1/namespaces/vshn-demoapp1/routes/webserver-staging
-  uid: 961e042e-0276-11e7-8841-fa163e3ec73a
-  creationTimestamp: '2017-03-06T14:10:00Z'
   labels:
     app: webserver-staging
   annotations:
