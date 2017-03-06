@@ -91,6 +91,7 @@ build-preprod:
         # update the configuration in OpenShift
         - sed -i 's;webserver-staging;webserver-preprod;g' docker/openshift/*
         - sed -i 's;webserver:latest;webserver:stable;g' docker/openshift/*
+        - sed -i 's;172.30.215.173;172.30.29.25;g' docker/openshift/*
         - oc replace -f docker/openshift -R
         # push the image to the internal registry
         - docker push $OC_REGISTRY_IMAGE:stable
@@ -111,6 +112,7 @@ build-prod:
         # update the configuration in OpenShift
         - sed -i 's;webserver-preprod;webserver-prod;g' docker/openshift/*
         - sed -i 's;webserver:stable;webserver:live;g' docker/openshift/*
+        - sed -i 's;172.30.215.173;172.30.31.200;g' docker/openshift/*
         - oc replace -f docker/openshift -R
         # tag the current stable image as live
         - oc tag webserver:stable webserver:live
