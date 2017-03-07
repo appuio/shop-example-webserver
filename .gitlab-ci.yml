@@ -12,7 +12,7 @@ variables:
 
 test:
     stage: build
-    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn:$YARN_VERSION
+    image: appuio/gitlab-runner-yarn:$YARN_VERSION
     script:
         # install necessary application packages
         - yarn install --cache-folder=".yarn"
@@ -28,7 +28,7 @@ test:
 
 compile:
     stage: build
-    image: registry.vshn.net/roland.schlaefli/docs_runner_yarn:$YARN_VERSION
+    image: appuio/gitlab-runner-yarn:$YARN_VERSION
     script:
         # install necessary application packages
         - yarn install --cache-folder=".yarn"
@@ -50,7 +50,7 @@ compile:
 build-staging:
     environment: webserver-staging
     stage: deploy-staging
-    image: registry.vshn.net/roland.schlaefli/docs_runner_oc:$OC_VERSION
+    image: appuio/gitlab-runner-oc:$OC_VERSION
     services:
         - docker:dind
     script:
@@ -77,7 +77,7 @@ build-staging:
 build-preprod:
     environment: webserver-preprod
     stage: deploy-preprod
-    image: registry.vshn.net/roland.schlaefli/docs_runner_oc:$OC_VERSION
+    image: appuio/gitlab-runner-oc:$OC_VERSION
     services:
         - docker:dind
     script:
@@ -105,7 +105,7 @@ build-preprod:
 build-prod:
     environment: webserver-prod
     stage: deploy-prod
-    image: registry.vshn.net/roland.schlaefli/docs_runner_oc:$OC_VERSION
+    image: appuio/gitlab-runner-oc:$OC_VERSION
     script:
         # login to the service account to get access to the CLI
         - oc login $KUBE_URL --token=$KUBE_TOKEN
