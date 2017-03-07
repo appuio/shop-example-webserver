@@ -5,14 +5,14 @@ stages:
     - deploy-prod
 
 variables:
+    NODE_VERSION: 6.10-alpine
     OC_REGISTRY_URL: "registry.appuio.ch"
     OC_REGISTRY_IMAGE: "$OC_REGISTRY_URL/$KUBE_NAMESPACE/webserver"
     OC_VERSION: 1.3.3
-    YARN_VERSION: 0.21.3
 
 test:
     stage: build
-    image: appuio/gitlab-runner-yarn:$YARN_VERSION
+    image: node:$NODE_VERSION
     script:
         # install necessary application packages
         - yarn install --cache-folder=".yarn"
@@ -28,7 +28,7 @@ test:
 
 compile:
     stage: build
-    image: appuio/gitlab-runner-yarn:$YARN_VERSION
+    image: node:$NODE_VERSION
     script:
         # install necessary application packages
         - yarn install --cache-folder=".yarn"
