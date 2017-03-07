@@ -19,13 +19,13 @@ test:
     image: node:$NODE_VERSION
     script:
         # install necessary application packages
-        - yarn install --cache-folder=$YARN_CACHE
+        - yarn install --cache-folder="$YARN_CACHE"
         # test the application sources
         - yarn test
     cache:
         key: "$CI_PROJECT_ID"
         paths:
-            - $YARN_CACHE
+            - "$YARN_CACHE"
             - node_modules
     # TODO: remove once issue is fixed
     allow_failure: true
@@ -35,7 +35,7 @@ compile:
     image: node:$NODE_VERSION
     script:
         # install necessary application packages
-        - yarn install --cache-folder=$YARN_CACHE
+        - yarn install --cache-folder="$YARN_CACHE"
         # build the application sources
         - yarn build
     artifacts:
@@ -45,7 +45,7 @@ compile:
     cache:
         key: "$CI_PROJECT_ID"
         paths:
-            - $YARN_CACHE
+            - "$YARN_CACHE"
             - node_modules
     only:
         - master
