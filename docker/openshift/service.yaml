@@ -17,7 +17,5 @@ spec:
   selector:
     app: webserver-staging
     deploymentconfig: webserver-staging
-  portalIP: 172.30.215.173
-  clusterIP: 172.30.215.173
   type: ClusterIP
   sessionAffinity: None
