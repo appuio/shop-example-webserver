@@ -38,8 +38,7 @@ mirror:
     - echo $DEPLOY_KEY > private_key
     - chmod 0600 private_key
     # mirror the repository to GitHub
-    - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - ssh-agent bash -c 'ssh-add private_key; git push --mirror git@github.com:appuio/shop-example-webserver.git master'
+    - echo "yes\n" | ssh-agent bash -c 'ssh-add private_key; git push --mirror git@github.com:appuio/shop-example-webserver.git master'
   allow_failure: true
 
 compile:
