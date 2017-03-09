@@ -36,6 +36,7 @@ mirror:
   script:
     # create the private ssh key from the secret variable
     - echo $DEPLOY_KEY > private_key
+    - chmod 0600 private_key
     # mirror the repository to GitHub
     - ssh-agent bash -c 'ssh-add private_key; git push git@github.com:appuio/shop-example-webserver.git master'
   allow_failure: true
