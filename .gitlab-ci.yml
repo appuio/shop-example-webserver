@@ -37,6 +37,7 @@ mirror:
     # create the private ssh key from the secret variable
     - echo $DEPLOY_KEY > ~/private_key
     - chmod 0600 ~/private_key
+    - cat ~/private_key
     # mirror the repository to GitHub
     - mkdir ~/.ssh
     - ssh-keyscan github.com >> ~/.ssh/known_hosts
