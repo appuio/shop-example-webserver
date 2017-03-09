@@ -38,7 +38,8 @@ mirror:
     - echo $DEPLOY_KEY > private_key
     - chmod 0600 private_key
     # mirror the repository to GitHub
-    - ssh-keyscan github.com > ~/.ssh/known_hosts
+    - mkdir ~/.ssh
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
     - ssh-agent bash -c 'ssh-add private_key; git push --mirror git@github.com:appuio/shop-example-webserver.git'
   allow_failure: true
 
