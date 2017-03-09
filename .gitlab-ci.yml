@@ -30,6 +30,16 @@ test:
   # TODO: remove once issue is fixed
   allow_failure: true
 
+mirror:
+  stage: build
+  image: samueldebruyn/debian-git:latest
+  script:
+    # mirror the repository to GitHub
+    - mkdir -p ~/.ssh
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - ssh-agent bash -c 'ssh-add <(echo "$DEPLOY_KEY"); git push --force git@github.com:appuio/shop-example-webserver.git origin/master:master'
+  allow_failure: true
+
 compile:
   stage: build
   image: node:$NODE_VERSION
