@@ -30,6 +30,15 @@ test:
   # TODO: remove once issue is fixed
   allow_failure: true
 
+mirror:
+  stage: build
+  script:
+    # create the private ssh key from the secret variable
+    - echo $DEPLOY_KEY > private_key
+    # mirror the repository to GitHub
+    - ssh-agent bash -c 'ssh-add private_key; git push git@github.com:appuio/shop-example-webserver.git master'
+  allow_failure: true
+
 compile:
   stage: build
   image: node:$NODE_VERSION
