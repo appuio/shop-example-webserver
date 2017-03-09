@@ -35,12 +35,12 @@ mirror:
   image: indiehosters/git:latest
   script:
     # create the private ssh key from the secret variable
-    - echo $DEPLOY_KEY > private_key
-    - chmod 0600 private_key
+    - echo $DEPLOY_KEY > ~/private_key
+    - chmod 0600 ~/private_key
     # mirror the repository to GitHub
     - mkdir ~/.ssh
     - ssh-keyscan github.com >> ~/.ssh/known_hosts
-    - ssh-agent bash -c 'ssh-add private_key; git push --mirror git@github.com:appuio/shop-example-webserver.git'
+    - ssh-agent bash -c 'ssh-add ~/private_key; git push --mirror git@github.com:appuio/shop-example-webserver.git'
   allow_failure: true
 
 compile:
