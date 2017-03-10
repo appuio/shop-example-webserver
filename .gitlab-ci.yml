@@ -14,21 +14,14 @@ variables:
   OC_VERSION: 1.3.3
   YARN_CACHE: .yarn
 
-test:
+.yarn: &yarn
   stage: build
   image: node:$NODE_VERSION
-  script:
-    # install necessary application packages
-    - yarn install --cache-folder="$YARN_CACHE"
-    # test the application sources
-    - yarn test
   cache:
     key: $CI_PROJECT_ID
     paths:
       - $YARN_CACHE
       - node_modules
-  # TODO: remove once issue is fixed
-  allow_failure: true
 
 mirror:
   stage: build
@@ -40,9 +33,17 @@ mirror:
     - ssh-agent bash -c 'ssh-add <(echo "$DEPLOY_KEY"); git push --force git@github.com:appuio/shop-example-webserver.git origin/master:master'
   allow_failure: true
 
+test:
+  <<: *yarn
+  script:
+    # install necessary application packages
+    - yarn install --cache-folder="$YARN_CACHE"
+    # test the application sources
+    - yarn test
+  # TODO: remove once issue is fixed
+  allow_failure: true
+
 compile:
-  stage: build
-  image: node:$NODE_VERSION
   script:
     # install necessary application packages
     - yarn install --cache-folder="$YARN_CACHE"
@@ -52,11 +53,6 @@ compile:
     expire_in: 5min
     paths:
       - build
-  cache:
-    key: $CI_PROJECT_ID
-    paths:
-      - $YARN_CACHE
-      - node_modules
   only:
     - master
     - tags
@@ -115,7 +111,7 @@ build-preprod:
     - tags
   tags:
     - dockerbuild
-    
+
 build-prod:
   environment: webserver-prod
   stage: deploy-prod
