@@ -15,7 +15,7 @@ variables:
   YARN_CACHE: .yarn
 
 .yarn_install: &yarn_install
-  yarn install --cache-folder="$YARN_CACHE"
+  - yarn install --cache-folder="$YARN_CACHE"
 
 .yarn_cache: &yarn_cache
   cache:
@@ -29,6 +29,16 @@ variables:
 
 .login_docker: &login_docker
   - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
+
+.replace_deploy_vars: *replace_deploy_vars 
+  - sed -i 's;webserver-staging;webserver-'"$DEPLOY_ENV"';g' docker/openshift/*
+  - sed -i 's;webserver:latest;webserver:'"$DEPLOY_TAG"';g' docker/openshift/*
+
+.replace_cluster_ip: &replace_cluster_ip
+  - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
+
+.replace_oc_objects: &replace_oc_objects
+  - oc replace -f docker/openshift -R
 
 mirror:
   stage: build
@@ -76,6 +86,9 @@ build-staging:
   image: appuio/gitlab-runner-oc:$OC_VERSION
   services:
     - docker:dind
+  variables:
+    DEPLOY_ENV: staging
+    DEPLOY_TAG: latest
   script:
     # login to the service account to get access to the internal registry
     <<: *login_oc
@@ -85,7 +98,7 @@ build-staging:
     - docker pull $OC_REGISTRY_IMAGE:latest
     - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
     # update the configuration in OpenShift
-    - oc replace -f docker/openshift -R
+    <<: *replace_oc_objects
     # push the image to the internal registry
     - docker push $OC_REGISTRY_IMAGE:latest
     # trigger a deployment
@@ -103,6 +116,10 @@ build-preprod:
   image: appuio/gitlab-runner-oc:$OC_VERSION
   services:
     - docker:dind
+  variables:
+    CLUSTER_IP: 172.30.29.25
+    DEPLOY_ENV: preprod
+    DEPLOY_TAG: stable
   script:
     # login to the service account to get access to the internal registry
     <<: *login_oc
@@ -112,10 +129,9 @@ build-preprod:
     - docker pull $OC_REGISTRY_IMAGE:latest
     - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:stable .
     # update the configuration in OpenShift
-    - sed -i 's;webserver-staging;webserver-preprod;g' docker/openshift/*
-    - sed -i 's;webserver:latest;webserver:stable;g' docker/openshift/*
-    - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP_PREPROD';g' docker/openshift/*
-    - oc replace -f docker/openshift -R
+    <<: *replace_deploy_vars
+    <<: *replace_cluster_ip
+    <<: *replace_oc_objects
     # push the image to the internal registry
     - docker push $OC_REGISTRY_IMAGE:stable
     # trigger a deployment
@@ -129,14 +145,17 @@ build-prod:
   environment: webserver-prod
   stage: deploy-prod
   image: appuio/gitlab-runner-oc:$OC_VERSION
+  variables:
+    CLUSTER_IP: 172.30.31.200
+    DEPLOY_ENV: prod
+    DEPLOY_TAG: live
   script:
     # login to the service account to get access to the CLI
     <<: *oc_login
     # update the configuration in OpenShift
-    - sed -i 's;webserver-staging;webserver-prod;g' docker/openshift/*
-    - sed -i 's;webserver:latest;webserver:live;g' docker/openshift/*
-    - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP_PROD';g' docker/openshift/*
-    - oc replace -f docker/openshift -R
+    <<: *replace_deploy_vars
+    <<: *replace_cluster_ip
+    <<: *replace_oc_objects
     # tag the current stable image as live
     - oc tag webserver:stable webserver:live
     # trigger a deployment
