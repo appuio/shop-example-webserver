@@ -23,6 +23,26 @@ variables:
       - $YARN_CACHE
       - node_modules
 
+.oc: &oc
+  image: appuio/gitlab-runner-oc:$OC_VERSION
+  script: &oc_script
+    # login to the service account to get access to the internal registry
+    - oc login $KUBE_URL --token=$KUBE_TOKEN
+    - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
+    # build the docker image and tag it as stable
+    # use the current latest image as a caching source
+    - docker pull $OC_REGISTRY_IMAGE:latest
+    - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:$DEPLOY_TAG .
+    # update the configuration in OpenShift
+    - sed -i 's;webserver-staging;webserver-'"$DEPLOY_ENV"';g' docker/openshift/*
+    - sed -i 's;webserver:latest;webserver:'"$DEPLOY_TAG"';g' docker/openshift/*
+    - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
+    - oc replace -f docker/openshift -R
+    # push the image to the internal registry
+    - docker push $OC_REGISTRY_IMAGE:$DEPLOY_TAG
+    # trigger a deployment
+    - oc deploy webserver-$DEPLOY_ENV --latest --follow
+
 mirror:
   stage: build
   image: samueldebruyn/debian-git:latest
@@ -44,6 +64,7 @@ test:
   allow_failure: true
 
 compile:
+  <<: *yarn
   script:
     # install necessary application packages
     - yarn install --cache-folder="$YARN_CACHE"
@@ -58,25 +79,14 @@ compile:
     - tags
 
 build-staging:
+  <<: *oc
   environment: webserver-staging
   stage: deploy-staging
-  image: appuio/gitlab-runner-oc:$OC_VERSION
+  variables:
+    DEPLOY_ENV: staging
+    DEPLOY_TAG: latest
   services:
     - docker:dind
-  script:
-    # login to the service account to get access to the internal registry
-    - oc login $KUBE_URL --token=$KUBE_TOKEN
-    - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
-    # build the docker image and tag it as latest
-    # use the current latest image as a caching source
-    - docker pull $OC_REGISTRY_IMAGE:latest
-    - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:latest .
-    # update the configuration in OpenShift
-    - oc replace -f docker/openshift -R
-    # push the image to the internal registry
-    - docker push $OC_REGISTRY_IMAGE:latest
-    # trigger a deployment
-    - oc deploy webserver-staging --latest --follow
   only:
     - master
   except:
@@ -85,37 +95,28 @@ build-staging:
     - dockerbuild
 
 build-preprod:
+  <<: *oc
   environment: webserver-preprod
   stage: deploy-preprod
-  image: appuio/gitlab-runner-oc:$OC_VERSION
+  variables:
+    CLUSTER_IP: 172.30.29.25
+    DEPLOY_ENV: preprod
+    DEPLOY_TAG: stable
   services:
     - docker:dind
-  script:
-    # login to the service account to get access to the internal registry
-    - oc login $KUBE_URL --token=$KUBE_TOKEN
-    - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
-    # build the docker image and tag it as stable
-    # use the current latest image as a caching source
-    - docker pull $OC_REGISTRY_IMAGE:latest
-    - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:stable .
-    # update the configuration in OpenShift
-    - sed -i 's;webserver-staging;webserver-preprod;g' docker/openshift/*
-    - sed -i 's;webserver:latest;webserver:stable;g' docker/openshift/*
-    - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP_PREPROD';g' docker/openshift/*
-    - oc replace -f docker/openshift -R
-    # push the image to the internal registry
-    - docker push $OC_REGISTRY_IMAGE:stable
-    # trigger a deployment
-    - oc deploy webserver-preprod --latest --follow
   only:
     - tags
   tags:
     - dockerbuild
 
 build-prod:
+  <<: *oc
   environment: webserver-prod
   stage: deploy-prod
-  image: appuio/gitlab-runner-oc:$OC_VERSION
+  variables:
+    CLUSTER_IP: 172.30.31.200
+    DEPLOY_ENV: prod
+    DEPLOY_TAG: live
   script:
     # login to the service account to get access to the CLI
     - oc login $KUBE_URL --token=$KUBE_TOKEN
