@@ -6,8 +6,6 @@ stages:
 
 variables:
   CLUSTER_IP_STAGING: 172.30.215.173
-  CLUSTER_IP_PREPROD: 172.30.29.25
-  CLUSTER_IP_PROD: 172.30.31.200
   NODE_VERSION: 6.10-alpine
   OC_REGISTRY_URL: registry.appuio.ch
   OC_REGISTRY_IMAGE: $OC_REGISTRY_URL/$KUBE_NAMESPACE/webserver
@@ -82,9 +80,6 @@ build-staging:
   <<: *oc
   environment: webserver-staging
   stage: deploy-staging
-  variables:
-    DEPLOY_ENV: staging
-    DEPLOY_TAG: latest
   services:
     - docker:dind
   only:
@@ -93,30 +88,30 @@ build-staging:
     - tags
   tags:
     - dockerbuild
+  variables:
+    CLUSTER_IP: 172.30.215.173
+    DEPLOY_ENV: staging
+    DEPLOY_TAG: latest
 
 build-preprod:
   <<: *oc
   environment: webserver-preprod
   stage: deploy-preprod
-  variables:
-    CLUSTER_IP: 172.30.29.25
-    DEPLOY_ENV: preprod
-    DEPLOY_TAG: stable
   services:
     - docker:dind
   only:
     - tags
   tags:
     - dockerbuild
+  variables:
+    CLUSTER_IP: 172.30.29.25
+    DEPLOY_ENV: preprod
+    DEPLOY_TAG: stable
 
 build-prod:
   <<: *oc
   environment: webserver-prod
   stage: deploy-prod
-  variables:
-    CLUSTER_IP: 172.30.31.200
-    DEPLOY_ENV: prod
-    DEPLOY_TAG: live
   script:
     # login to the service account to get access to the CLI
     - oc login $KUBE_URL --token=$KUBE_TOKEN
@@ -132,3 +127,7 @@ build-prod:
   only:
     - tags
   when: manual
+  variables:
+    CLUSTER_IP: 172.30.31.200
+    DEPLOY_ENV: prod
+    DEPLOY_TAG: live
