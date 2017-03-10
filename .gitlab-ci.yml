@@ -30,7 +30,7 @@ variables:
 .login_docker: &login_docker
   - docker login -u serviceaccount -p `oc whoami -t` $OC_REGISTRY_URL
 
-.replace_deploy_vars: *replace_deploy_vars 
+.replace_deploy_vars: &replace_deploy_vars 
   - sed -i 's;webserver-staging;webserver-'"$DEPLOY_ENV"';g' docker/openshift/*
   - sed -i 's;webserver:latest;webserver:'"$DEPLOY_TAG"';g' docker/openshift/*
 
@@ -56,7 +56,7 @@ test:
   image: node:$NODE_VERSION
   script:
     # install necessary application packages
-    <<: *yarn_install
+    *yarn_install
     # test the application sources
     - yarn test
   <<: *yarn_cache
@@ -68,7 +68,7 @@ compile:
   image: node:$NODE_VERSION
   script:
     # install necessary application packages
-    <<: *yarn_install
+    *yarn_install
     # build the application sources
     - yarn build
   artifacts:
