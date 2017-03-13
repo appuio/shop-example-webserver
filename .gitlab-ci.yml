@@ -23,6 +23,8 @@ variables:
 
 .oc: &oc
   image: appuio/gitlab-runner-oc:$OC_VERSION
+  environment: webserver-$DEPLOY_ENV
+  stage: deploy-$DEPLOY_ENV
   script: &oc_script
     # login to the service account to get access to the internal registry
     - oc login $KUBE_URL --token=$KUBE_TOKEN
@@ -118,7 +120,7 @@ build-prod:
     # update the configuration in OpenShift
     - sed -i 's;webserver-staging;webserver-prod;g' docker/openshift/*
     - sed -i 's;webserver:latest;webserver:live;g' docker/openshift/*
-    - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP_PROD';g' docker/openshift/*
+    - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
     - oc replace -f docker/openshift -R
     # tag the current stable image as live
     - oc tag webserver:stable webserver:live
@@ -129,5 +131,4 @@ build-prod:
   when: manual
   variables:
     CLUSTER_IP: 172.30.31.200
-    DEPLOY_ENV: prod
-    DEPLOY_TAG: live
+    
