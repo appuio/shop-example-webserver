@@ -23,8 +23,6 @@ variables:
 
 .oc: &oc
   image: appuio/gitlab-runner-oc:$OC_VERSION
-  environment: webserver-$DEPLOY_ENV
-  stage: deploy-$DEPLOY_ENV
   script: &oc_script
     # login to the service account to get access to the internal registry
     - oc login $KUBE_URL --token=$KUBE_TOKEN
