@@ -48,7 +48,7 @@ mirror:
     # mirror the repository to GitHub
     - mkdir -p ~/.ssh
     - ssh-keyscan github.com >> ~/.ssh/known_hosts
-    - ssh-agent bash -c 'ssh-add <(echo "$DEPLOY_KEY"); git push git@github.com:appuio/shop-example-webserver.git origin/master:master'
+    - ssh-agent bash -c 'ssh-add <(echo "$DEPLOY_KEY"); git push --force git@github.com:appuio/shop-example-webserver.git origin/master:master; git push --force git@github.com:appuio/shop-example-webserver.git --tags'
   allow_failure: true
 
 test:
