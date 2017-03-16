@@ -1,5 +1,4 @@
 import {applyMiddleware, combineReducers, createStore} from "redux"
-import {routerReducer} from "react-router-redux"
 import {composeWithDevTools} from "redux-devtools-extension"
 import thunk from "redux-thunk"
 import createLogger from "redux-logger"
@@ -11,8 +10,7 @@ const logger = createLogger()
 export const configureStore = () => {
   return createStore(
     combineReducers({
-      ...reducers,
-      routing: routerReducer
+      ...reducers
     }),
     composeWithDevTools(
       applyMiddleware(thunk.withExtraArgument({fetch}), logger)
