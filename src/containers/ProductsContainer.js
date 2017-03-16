@@ -1,7 +1,7 @@
-import React, {Component} from "react"
-import {connect} from "react-redux"
-import {fetchProducts, productsApplyFilter} from "../redux/modules/products"
-import Products from "../components/Products/Products"
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {fetchProducts, productsApplyFilter} from '../redux/modules/products'
+import Products from '../components/Products/Products'
 
 class ProductsContainer extends Component {
   componentDidMount() {

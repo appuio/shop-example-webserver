@@ -1,9 +1,10 @@
-import React from "react"
-import {Route, Link} from "react-router-dom"
-import {Container, Grid, Icon, Menu, Segment} from "semantic-ui-react"
-import CartContainer from "./CartContainer"
-import ProductsContainer from "./ProductsContainer"
-import ProductContainer from "./ProductContainer"
+import React from 'react'
+import {Route, Link} from 'react-router-dom'
+import {Container, Grid, Icon, Menu, Segment} from 'semantic-ui-react'
+import CartContainer from './CartContainer'
+import ProductsContainer from './ProductsContainer'
+import ProductContainer from './ProductContainer'
+import LoginContainer from './LoginContainer'
 
 const App = () =>
   <Container>
@@ -22,6 +23,7 @@ const App = () =>
       </Grid.Row>
       <Route exact path="/" component={ProductsContainer}/>
       <Route exact path="/cart" component={CartContainer}/>
+      <Route exact path="/login" component={LoginContainer}/>
       <Route path="/products/:id" component={ProductContainer}/>
       <Grid.Row>
         <Grid.Column>

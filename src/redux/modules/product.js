@@ -1,4 +1,4 @@
-import {checkStatus, parseJSON} from "../../utils/fetch"
+import {checkStatus, parseJSON} from '../../utils/fetch'
 
 // actions
 const REQUEST = 'app/product/REQUEST'

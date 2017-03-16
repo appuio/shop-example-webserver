@@ -1,6 +1,6 @@
-import React from "react"
-import {Card, Dropdown, Grid, Input, Loader, Message, Segment} from "semantic-ui-react"
-import Product from "./Product"
+import React from 'react'
+import {Card, Dropdown, Grid, Input, Loader, Message, Segment} from 'semantic-ui-react'
+import Product from './Product'
 
 const Products = ({products: {loading, filtered, filters, error}, applyFilter}) => {
   // dynamically calculate the options to be displayed in the sidebar

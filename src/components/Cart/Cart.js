@@ -1,7 +1,7 @@
-import React from "react"
-import {Grid, Message, Segment, Table} from "semantic-ui-react"
-import _map from "lodash/map"
-import CartItem from "./CartItem"
+import React from 'react'
+import {Grid, Message, Segment, Table} from 'semantic-ui-react'
+import _map from 'lodash/map'
+import CartItem from './CartItem'
 
 const Cart = ({cart, removeItem, updateItem}) => {
   return (
