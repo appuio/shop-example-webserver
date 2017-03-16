@@ -89,7 +89,7 @@ build-staging:
   tags:
     - dockerbuild
   variables:
-    CLUSTER_IP: 172.30.215.173
+    CLUSTER_IP: $CLUSTER_IP_STAGING
     DEPLOY_ENV: staging
     DEPLOY_TAG: latest
 
