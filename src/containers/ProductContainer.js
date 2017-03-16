@@ -8,9 +8,9 @@ import Product from "../components/Product/Product"
 
 class ProductContainer extends Component {
   componentDidMount() {
-    const {fetch, params} = this.props
+    const {fetch, match} = this.props
 
-    fetch(params.id)
+    fetch(match.params.id)
   }
 
   addToCart = () => {

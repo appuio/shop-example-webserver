@@ -1,5 +1,5 @@
 import React from "react"
-import {Link} from "react-router"
+import {Link} from "react-router-dom"
 import {Card, Icon, Label} from "semantic-ui-react"
 
 const Product = ({product, category, publisher, licenseType}) =>
