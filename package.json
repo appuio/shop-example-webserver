@@ -6,6 +6,7 @@
   "author": "Roland Schläfli <rolandschlaefli@gmail.com>",
   "private": true,
   "devDependencies": {
+    "cross-env": "^3.2.4",
     "react-scripts": "0.9.5"
   },
   "dependencies": {
@@ -27,7 +28,8 @@
     "whatwg-fetch": "^2.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env REACT_APP_API_URL='http://172.28.128.3:4000' react-scripts start",
+    "build-local": "cross-env REACT_APP_API_URL='http://172.28.128.3:4000' react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

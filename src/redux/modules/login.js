@@ -63,7 +63,7 @@ export const login = (email, password) => (dispatch, getState, {fetch}) => {
   dispatch(loginRequest())
 
   // call the api
-  fetch('http://172.28.128.3:4000/api/v1/users/login', {
+  fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/login`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
