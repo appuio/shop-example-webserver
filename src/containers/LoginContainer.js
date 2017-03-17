@@ -7,13 +7,13 @@ import Login from '../components/Login/Login'
 class LoginContainer extends Component {
   render() {
     // if logged in, redirect to the homepage
-    if (this.props.loggedIn) {
+    if (this.props.data) {
       return <Redirect to={{pathname: '/'}}/>
     }
 
     return <Login
       loading={this.props.loading}
-      loggedIn={this.props.loggedIn}
+      error={this.props.error}
       login={this.props.login}
     />
   }
@@ -21,8 +21,7 @@ class LoginContainer extends Component {
 
 export default connect(
   state => ({
-    loading: state.login.loading,
-    loggedIn: state.login.data
+    ...state.login
   }),
   dispatch => ({
     login: ({email, password}) => dispatch(login(email, password))

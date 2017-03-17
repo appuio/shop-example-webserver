@@ -38,11 +38,9 @@ const Products = ({products: {loading, filtered, filters, error}, applyFilter}) 
       <Grid.Column width={12}>
         <Segment loading={loading}>
           {error && <Message error>Error: {error}</Message>}
-          {
-            <Card.Group itemsPerRow={3}>
-              {filtered.map(item => <Product key={item.product.id} {...item} />)}
-            </Card.Group>
-          }
+          <Card.Group itemsPerRow={3}>
+            {filtered.map(item => <Product key={item.product.id} {...item} />)}
+          </Card.Group>
         </Segment>
       </Grid.Column>
     </Grid.Row>

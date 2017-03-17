@@ -12,8 +12,9 @@ class SignupContainer extends Component {
     }
 
     return <Signup
-      loading={false}
-      signedUp={this.props.signedUp}
+      loading={this.props.loading}
+      data={this.props.data}
+      error={this.props.error}
       signup={this.props.signup}
     />
   }
@@ -21,8 +22,8 @@ class SignupContainer extends Component {
 
 export default connect(
   state => ({
-    loading: state.signup.loading,
-    signedUp: state.signup.data
+    ...state.signup,
+    loggedIn: state.login.data != null
   }),
   dispatch => ({
     signup: ({name, email, password}) => dispatch(signup(name, email, password))
