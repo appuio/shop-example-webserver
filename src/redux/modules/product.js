@@ -52,7 +52,7 @@ export const fetchProduct = (id) => (dispatch, getState, {fetch}) => {
   dispatch(productRequest(id))
 
   // call the api
-  fetch(`https://api-vshn-demoapp1.appuioapp.ch/products/${id}`)
+  fetch(`${process.env.REACT_APP_API_URL}/api/v1/products/${id}`)
     .then(checkStatus)
     .then(parseJSON)
     .then(json => dispatch(productReceive(json.data)))
