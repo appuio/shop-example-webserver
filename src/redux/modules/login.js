@@ -53,7 +53,7 @@ export const loginReceive = (data) => ({type: LOGIN_RECEIVE, payload: data})
 export const loginFail = (message) => ({type: LOGIN_FAIL, payload: {message}})
 export const logout = () => ({type: LOGOUT})
 
-export const doLogin = (email, password) => (dispatch, getState, {fetch}) => {
+export const login = (email, password) => (dispatch, getState, {fetch}) => {
   // if there already is a token, resolve the promise early
   if (_get(getState(), 'login.data.token')) {
     return Promise.resolve()
@@ -66,6 +66,7 @@ export const doLogin = (email, password) => (dispatch, getState, {fetch}) => {
   fetch('http://172.28.128.3:4000/api/v1/users/login', {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
