@@ -2,7 +2,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import {Dropdown, Grid, Icon, Menu} from 'semantic-ui-react'
 
-const Header = ({loginData}) => {
+const Header = ({loginData, logout}) => {
   return (
     <Grid.Row>
       <Grid.Column>
@@ -19,7 +19,7 @@ const Header = ({loginData}) => {
               <Menu.Menu position="right">
                 <Dropdown item text={loginData.email}>
                   <Dropdown.Menu>
-                    <Dropdown.Item>
+                    <Dropdown.Item onClick={() => logout()}>
                       <Icon name="sign out"/>Logout
                     </Dropdown.Item>
                   </Dropdown.Menu>
