@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-// import {login} from '../redux/modules/login'
+import {signup} from '../redux/modules/signup'
 import Signup from '../components/Signup/Signup'
 
 class SignupContainer extends Component {
@@ -13,17 +13,18 @@ class SignupContainer extends Component {
 
     return <Signup
       loading={false}
-      signup={() => console.log('sign up')}
+      signedUp={this.props.signedUp}
+      signup={this.props.signup}
     />
   }
 }
 
 export default connect(
   state => ({
-    // loading: state.login.loading,
-    // loggedIn: state.login.data
+    loading: state.signup.loading,
+    signedUp: state.signup.data
   }),
   dispatch => ({
-    // login: ({email, password}) => dispatch(login(email, password))
+    signup: ({name, email, password}) => dispatch(signup(name, email, password))
   })
 )(SignupContainer)
