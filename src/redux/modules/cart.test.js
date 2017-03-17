@@ -1,4 +1,4 @@
-import reducer, {calculateSum, cartAddItem, cartUpdateItem} from "./cart"
+import reducer, {calculateSum, cartAddItem, cartUpdateItem} from './cart'
 
 const item1 = {
   uuid: "testing123",

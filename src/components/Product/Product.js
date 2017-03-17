@@ -1,5 +1,5 @@
-import React from "react"
-import {Accordion, Button, Comment, Grid, Header, Icon, Label, Loader, Message, Segment} from "semantic-ui-react"
+import React from 'react'
+import {Accordion, Button, Comment, Grid, Header, Icon, Label, Loader, Message, Segment} from 'semantic-ui-react'
 
 const Product = ({product: {loading, data, error}, inCart, addToCart}) => {
   return (

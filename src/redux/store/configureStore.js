@@ -1,16 +1,18 @@
-import {applyMiddleware, combineReducers, createStore} from "redux"
-import {composeWithDevTools} from "redux-devtools-extension"
-import thunk from "redux-thunk"
-import createLogger from "redux-logger"
-import "whatwg-fetch"
-import * as reducers from "../modules/index"
+import {applyMiddleware, combineReducers, createStore} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
+import createLogger from 'redux-logger'
+import {reducer as formReducer} from 'redux-form'
+import 'whatwg-fetch'
+import * as reducers from '../modules/index'
 
 const logger = createLogger()
 
 export const configureStore = () => {
   return createStore(
     combineReducers({
-      ...reducers
+      ...reducers,
+      form: formReducer
     }),
     composeWithDevTools(
       applyMiddleware(thunk.withExtraArgument({fetch}), logger)

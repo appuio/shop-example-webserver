@@ -1,6 +1,6 @@
-import _omitBy from "lodash/omitBy"
-import _map from "lodash/map"
-import _size from "lodash/size"
+import _omitBy from 'lodash/omitBy'
+import _map from 'lodash/map'
+import _size from 'lodash/size'
 
 // utils
 export const calculateSum = (items) => {

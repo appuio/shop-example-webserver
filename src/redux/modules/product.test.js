@@ -1,4 +1,4 @@
-import reducer, {productRequest, productReceive, productFail} from "./product"
+import reducer, {productRequest, productReceive, productFail} from './product'
 
 const initialState = {
   loading: false,

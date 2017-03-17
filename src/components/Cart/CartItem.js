@@ -1,5 +1,5 @@
-import React from "react"
-import {Button, Table} from "semantic-ui-react"
+import React from 'react'
+import {Button, Table} from 'semantic-ui-react'
 
 const CartItem = ({name, quantity, price, removeItem, updateItem}) => {
   return (

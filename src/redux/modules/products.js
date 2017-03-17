@@ -1,6 +1,6 @@
-import _forEach from "lodash/forEach"
-import _includes from "lodash/includes"
-import {checkStatus, parseJSON} from "../../utils/fetch"
+import _forEach from 'lodash/forEach'
+import _includes from 'lodash/includes'
+import {checkStatus, parseJSON} from '../../utils/fetch'
 
 // actions
 const REQUEST = 'app/products/REQUEST'

@@ -9,3 +9,11 @@ export const checkStatus = (response) => {
 }
 
 export const parseJSON = (response) => response.json()
+
+export const checkSuccess = (json) => {
+  if (json.success) {
+    return json.data
+  } else {
+    throw new Error(json.error.message)
+  }
+}
