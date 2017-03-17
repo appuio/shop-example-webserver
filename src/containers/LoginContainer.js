@@ -1,20 +1,30 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {doLogin, logout} from '../redux/modules/login'
+import {login} from '../redux/modules/login'
 import Login from '../components/Login/Login'
 
 class LoginContainer extends Component {
   render() {
-    return <Login isLoggedIn={this.props.login.data} login={this.props.doLogin} logout={this.props.logout}/>
+    // if logged in, redirect to the homepage
+    if (this.props.loggedIn) {
+      return <Redirect to={{pathname: '/'}}/>
+    }
+
+    return <Login
+      loading={this.props.loading}
+      loggedIn={this.props.loggedIn}
+      login={this.props.login}
+    />
   }
 }
 
 export default connect(
   state => ({
-    login: state.login
+    loading: state.login.loading,
+    loggedIn: state.login.data
   }),
   dispatch => ({
-    doLogin: (email, password) => dispatch(doLogin(email, password)),
-    logout: () => dispatch(logout())
+    login: ({email, password}) => dispatch(login(email, password))
   })
 )(LoginContainer)
