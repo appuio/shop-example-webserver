@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {doLogin} from '../redux/modules/login'
+import {doLogin, logout} from '../redux/modules/login'
 import Login from '../components/Login/Login'
 
 class LoginContainer extends Component {
   render() {
-    return <Login login={this.props.login}/>
+    return <Login isLoggedIn={this.props.login.data} login={this.props.doLogin} logout={this.props.logout}/>
   }
 }
 
@@ -14,6 +14,7 @@ export default connect(
     login: state.login
   }),
   dispatch => ({
-    login: (email, password) => dispatch(doLogin(email, password))
+    doLogin: (email, password) => dispatch(doLogin(email, password)),
+    logout: () => dispatch(logout())
   })
 )(LoginContainer)

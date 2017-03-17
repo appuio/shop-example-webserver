@@ -2,10 +2,10 @@ import _get from 'lodash/get'
 import {checkStatus, parseJSON, checkSuccess} from '../../utils/fetch'
 
 // actions
-const LOGIN_REQUEST = 'app/account/LOGIN_REQUEST'
-const LOGIN_RECEIVE = 'app/account/LOGIN_RECEIVE'
-const LOGIN_FAIL = 'app/account/LOGIN_FAIL'
-const LOGOUT = 'app/account/LOGOUT'
+const LOGIN_REQUEST = 'app/login/LOGIN_REQUEST'
+const LOGIN_RECEIVE = 'app/login/LOGIN_RECEIVE'
+const LOGIN_FAIL = 'app/login/LOGIN_FAIL'
+const LOGOUT = 'app/login/LOGOUT'
 
 // reducers
 const reducer = (state = {
