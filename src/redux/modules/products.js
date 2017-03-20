@@ -104,7 +104,7 @@ export const fetchProducts = () => (dispatch, getState, {fetch}) => {
   dispatch(productsRequest())
 
   // call the api
-  fetch(`${process.env.REACT_APP_API_URL}/api/v1/products/`)
+  fetch(`${process.env.REACT_APP_API_URL}/api/v1/products`)
     .then(checkStatus)
     .then(parseJSON)
     .then(json => dispatch(productsReceive(json.items)))
