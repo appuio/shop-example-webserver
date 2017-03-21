@@ -31,13 +31,13 @@ variables:
     # use the current latest image as a caching source
     - docker pull $OC_REGISTRY_IMAGE:latest
     - docker build --cache-from $OC_REGISTRY_IMAGE:latest -t $OC_REGISTRY_IMAGE:$DEPLOY_TAG .
+    # push the image to the internal registry
+    - docker push $OC_REGISTRY_IMAGE:$DEPLOY_TAG
     # update the configuration in OpenShift
     - sed -i 's;webserver-staging;webserver-'"$DEPLOY_ENV"';g' docker/openshift/*
     - sed -i 's;webserver:latest;webserver:'"$DEPLOY_TAG"';g' docker/openshift/*
     - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
     - oc replace -f docker/openshift -R
-    # push the image to the internal registry
-    - docker push $OC_REGISTRY_IMAGE:$DEPLOY_TAG
     # trigger a deployment
     - oc deploy webserver-$DEPLOY_ENV --latest --follow
 
@@ -117,13 +117,13 @@ build-prod:
   script:
     # login to the service account to get access to the CLI
     - oc login $KUBE_URL --token=$KUBE_TOKEN
+    # tag the current stable image as live
+    - oc tag webserver:stable webserver:live
     # update the configuration in OpenShift
     - sed -i 's;webserver-staging;webserver-prod;g' docker/openshift/*
     - sed -i 's;webserver:latest;webserver:live;g' docker/openshift/*
     - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
     - oc replace -f docker/openshift -R
-    # tag the current stable image as live
-    - oc tag webserver:stable webserver:live
     # trigger a deployment
     - oc deploy webserver-prod --latest --follow
   only:
