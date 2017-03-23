@@ -13,7 +13,7 @@ const Product = ({product, category, publisher, licenseType}) =>
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <span style={{color: "red", fontSize: 20}}>{product.price} CHF</span>
+      <span style={{color: 'red', fontSize: 20}}>{product.price} CHF</span>
     </Card.Content>
     <Card.Content extra>
       <Label.Group size="small">

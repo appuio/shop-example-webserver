@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {logout} from '../redux/modules/login'
 import Header from '../components/Header/Header'
+import {logout} from '../redux/modules/login'
 
 const HeaderContainer = ({loginData, logout}) => {
   return (

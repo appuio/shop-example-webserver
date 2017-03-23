@@ -1,10 +1,10 @@
+import _get from 'lodash/get'
+import _has from 'lodash/has'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import _has from 'lodash/has'
-import _get from 'lodash/get'
-import {fetchProduct} from '../redux/modules/product'
-import {cartAddItem} from '../redux/modules/cart'
 import Product from '../components/Product/Product'
+import {cartAddItem} from '../redux/modules/cart'
+import {fetchProduct} from '../redux/modules/product'
 
 class ProductContainer extends Component {
   componentDidMount() {

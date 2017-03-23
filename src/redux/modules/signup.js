@@ -1,4 +1,4 @@
-import {checkStatus, parseJSON, checkSuccess} from '../../utils/fetch'
+import {checkStatus, checkSuccess, parseJSON} from '../../utils/fetch'
 
 // actions
 const SIGNUP_REQUEST = 'app/login/SIGNUP_REQUEST'
@@ -7,10 +7,10 @@ const SIGNUP_FAIL = 'app/login/SIGNUP_FAIL'
 
 // reducers
 const reducer = (state = {
-  loading: false,
-  data: null,
-  error: null
-}, action) => {
+                   loading: false,
+                   data: null,
+                   error: null
+                 }, action) => {
   switch (action.type) {
     case SIGNUP_REQUEST:
       return {

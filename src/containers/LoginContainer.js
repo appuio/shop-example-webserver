@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {login} from '../redux/modules/login'
+import {Redirect} from 'react-router-dom'
 import Login from '../components/Login/Login'
+import {login} from '../redux/modules/login'
 
 class LoginContainer extends Component {
   render() {

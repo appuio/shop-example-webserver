@@ -7,10 +7,10 @@ const FAIL = 'app/product/FAIL'
 
 // reducer
 const reducer = (state = {
-  loading: false,
-  data: null,
-  error: null
-}, action) => {
+                   loading: false,
+                   data: null,
+                   error: null
+                 }, action) => {
   switch (action.type) {
     case REQUEST:
       return {

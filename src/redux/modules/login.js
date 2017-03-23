@@ -1,5 +1,5 @@
 import _get from 'lodash/get'
-import {checkStatus, parseJSON, checkSuccess} from '../../utils/fetch'
+import {checkStatus, checkSuccess, parseJSON} from '../../utils/fetch'
 
 // actions
 const LOGIN_REQUEST = 'app/login/LOGIN_REQUEST'
@@ -9,10 +9,10 @@ const LOGOUT = 'app/login/LOGOUT'
 
 // reducers
 const reducer = (state = {
-  loading: false,
-  data: null,
-  error: null
-}, action) => {
+                   loading: false,
+                   data: null,
+                   error: null
+                 }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {

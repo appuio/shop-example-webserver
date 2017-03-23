@@ -1,14 +1,14 @@
 import reducer, {calculateSum, cartAddItem, cartUpdateItem} from './cart'
 
 const item1 = {
-  uuid: "testing123",
-  name: "testname",
+  uuid: 'testing123',
+  name: 'testname',
   price: 100,
   quantity: 1
 }
 const item2 = {
-  uuid: "testing345",
-  name: "tester",
+  uuid: 'testing345',
+  name: 'tester',
   price: 30,
   quantity: 2
 }
@@ -17,7 +17,7 @@ const initialState = {
   items: {},
   size: 0,
   sum: 0
-};
+}
 const withOneItem = {
   items: {
     testing123: item1
@@ -53,7 +53,7 @@ describe('cart - utils', () => {
       3: {price: 0, quantity: 4}
     })).toEqual(40)
   })
-});
+})
 
 describe('cart - reducer', () => {
 
@@ -70,7 +70,7 @@ describe('cart - reducer', () => {
   })
 
   it('should handle ITEM_UPDATE', () => {
-    expect(reducer(withOneItem, cartUpdateItem("testing123", 2))).toEqual({
+    expect(reducer(withOneItem, cartUpdateItem('testing123', 2))).toEqual({
       items: {
         testing123: {
           ...item1,
@@ -81,7 +81,7 @@ describe('cart - reducer', () => {
       sum: 200
     })
 
-    expect(reducer(withTwoItems, cartUpdateItem("testing345", 0))).toEqual({
+    expect(reducer(withTwoItems, cartUpdateItem('testing345', 0))).toEqual({
       items: {
         testing123: item1
       },

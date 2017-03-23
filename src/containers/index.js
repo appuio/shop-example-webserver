@@ -1,8 +1,8 @@
 import CartContainer from './CartContainer'
-import ProductsContainer from './ProductsContainer'
-import ProductContainer from './ProductContainer'
-import LoginContainer from './LoginContainer'
 import HeaderContainer from './HeaderContainer'
+import LoginContainer from './LoginContainer'
+import ProductContainer from './ProductContainer'
+import ProductsContainer from './ProductsContainer'
 import SignupContainer from './SignupContainer'
 
 export {

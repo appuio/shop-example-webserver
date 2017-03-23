@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {signup} from '../redux/modules/signup'
+import {Redirect} from 'react-router-dom'
 import Signup from '../components/Signup/Signup'
+import {signup} from '../redux/modules/signup'
 
 class SignupContainer extends Component {
   render() {

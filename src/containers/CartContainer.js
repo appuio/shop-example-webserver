@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {cartRemoveItem, cartUpdateItem} from '../redux/modules/cart'
 import Cart from '../components/Cart/Cart'
+import {cartRemoveItem, cartUpdateItem} from '../redux/modules/cart'
 
 class ProductsContainer extends Component {
   render() {

@@ -11,20 +11,20 @@ const FILTER_APPLY = 'app/products/FILTER_APPLY'
 
 // reducer
 const reducer = (state = {
-  loading: false,
-  items: [],
-  filtered: [],
-  filters: {
-    categories: [],
-    licenseTypes: [],
-    publishers: [],
-    category: [],
-    licenseType: [],
-    publisher: [],
-    query: null
-  },
-  error: null
-}, action) => {
+                   loading: false,
+                   items: [],
+                   filtered: [],
+                   filters: {
+                     categories: [],
+                     licenseTypes: [],
+                     publishers: [],
+                     category: [],
+                     licenseType: [],
+                     publisher: [],
+                     query: null
+                   },
+                   error: null
+                 }, action) => {
   switch (action.type) {
     case REQUEST:
       return {
@@ -61,7 +61,7 @@ const reducer = (state = {
       }
 
       // initially set the array of filtered products to the full items array
-      let filtered = state.items;
+      let filtered = state.items
 
       // filter the products by types (category, publisher, licenseType)
       _forEach(['category', 'publisher', 'licenseType'], type =>

@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
 import {reducer as formReducer} from 'redux-form'
+import createLogger from 'redux-logger'
+import thunk from 'redux-thunk'
 import 'whatwg-fetch'
 import * as reducers from '../modules/index'
 

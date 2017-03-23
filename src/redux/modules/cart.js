@@ -1,5 +1,5 @@
-import _omitBy from 'lodash/omitBy'
 import _map from 'lodash/map'
+import _omitBy from 'lodash/omitBy'
 import _size from 'lodash/size'
 
 // utils
@@ -18,10 +18,10 @@ const ITEM_UPDATE = 'app/cart/ITEM_UPDATE'
 
 // reducer
 const reducer = (state = {
-  items: {},
-  size: 0,
-  sum: 0
-}, action) => {
+                   items: {},
+                   size: 0,
+                   sum: 0
+                 }, action) => {
   switch (action.type) {
     case ITEM_ADD: {
       const items = {

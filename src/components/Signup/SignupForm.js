@@ -1,6 +1,6 @@
 import React from 'react'
-import {Form, Button} from 'semantic-ui-react'
 import {Field, reduxForm} from 'redux-form'
+import {Button, Form} from 'semantic-ui-react'
 
 const SignupForm = ({disabled, onSubmit, handleSubmit}) =>
   <Form onSubmit={handleSubmit(onSubmit)}>
