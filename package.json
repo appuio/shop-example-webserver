@@ -7,6 +7,7 @@
   "private": true,
   "devDependencies": {
     "cross-env": "^3.2.4",
+    "jest-fetch-mock": "^1.0.8",
     "react-scripts": "0.9.5"
   },
   "dependencies": {

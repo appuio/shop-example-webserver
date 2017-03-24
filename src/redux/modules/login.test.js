@@ -1,4 +1,4 @@
-import _forIn from 'lodash/forIn'
+import _forEach from 'lodash/forEach'
 import reducer, {loginFail, loginReceive, loginRequest, logout} from './login'
 
 const initialState = {
@@ -30,7 +30,7 @@ describe('login - reducer', () => {
   })
 
   it('should handle LOGIN_RECEIVE', () => {
-    expect(reducer(initialState, loginReceive())).toEqual({
+    expect(reducer(initialState, loginReceive({token: 'JWT'}))).toEqual({
       loading: false,
       data: {
         token: 'JWT'
@@ -48,13 +48,17 @@ describe('login - reducer', () => {
   })
 
   it('should handle LOGOUT', () => {
-    _forIn([initialState, loggedInState], state => {
+    _forEach([initialState, loggedInState], state => {
       expect(reducer(state, logout())).toEqual({
         loading: false,
         data: null,
         error: null
       })
     })
+  })
+
+  it('should handle login (async)', () => {
+
   })
 
 })
