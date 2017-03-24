@@ -1,4 +1,9 @@
-import reducer, {productsApplyFilter, productsFail, productsReceive, productsRequest} from './products'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import reducer, {fetchProducts, productsApplyFilter, productsFail, productsReceive, productsRequest} from './products'
+
+// configure the mock store
+const mockStore = configureMockStore([thunk.withExtraArgument({fetch})])
 
 const initialState = {
   loading: false,
@@ -150,35 +155,67 @@ describe('products - reducer', () => {
       ]
     })
   })
+
+  it('should resolve early if there are already products in state', () => {
+    // TODO: this is not really the optimal strategy..
+
+    // setup the store
+    const store = mockStore({
+      products: {
+        ...initialState,
+        items: [
+          product1
+        ]
+      }
+    })
+
+    // check if the cached products are reused
+    store.dispatch(fetchProducts()).then(() => {
+      expect(store.getActions()).toEqual([])
+    })
+  })
+
+  it('should handle successful fetching (async)', () => {
+    // setup the store
+    const store = mockStore({products: initialState})
+
+    // setup a successful mock response
+    fetch.mockResponseOnce(JSON.stringify({
+      success: true,
+      items: [
+        {
+          id: 'hello world'
+        }
+      ]
+    }), {status: 200, statusText: 'OK'})
+
+    // check whether the correct actions are dispatched
+    store.dispatch(fetchProducts()).then(() => {
+      expect(store.getActions()).toEqual([
+        productsRequest(),
+        productsReceive([{id: 'hello world'}])
+      ])
+    })
+  })
+
+  it('should handle failed fetching (async)', () => {
+    // setup the store
+    const store = mockStore({products: initialState})
+
+    // setup a failed mock response
+    fetch.mockResponseOnce(JSON.stringify({
+      success: false,
+      error: {
+        message: 'blablabla'
+      }
+    }), {status: 404, statusText: 'NotFound'})
+
+    // check whether the correct actions are dispatched
+    store.dispatch(fetchProducts()).then(() => {
+      expect(store.getActions()).toEqual([
+        productsRequest(),
+        productsFail('NotFound')
+      ])
+    })
+  })
 })
-
-/*
- // this doesn't work at the moment (https://github.com/node-nock/nock/issues/409)
- // TODO: use https://github.com/wheresrhys/fetch-mock?
-
- import configureMockStore from "redux-mock-store"
- import thunk from "redux-thunk"
- import nock from "nock"
- const middlewares = [thunk]
- const mockStore = configureMockStore(middlewares)
- describe('products - async', () => {
- afterEach(() => {
- nock.cleanAll()
- })
-
- it('can fetch products', () => {
- nock('https://api-vshn-demoapp1.appuioapp.ch/')
- .get('/products')
- .reply(200, {body: {success: true, items: []}})
-
- const store = mockStore({
- products: initialState
- })
-
- return store.dispatch(fetchProducts())
- .then(() => { // return of async actions
-
- })
- })
- }) */
-

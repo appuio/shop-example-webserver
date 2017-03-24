@@ -48,7 +48,7 @@ export const signup = (name, email, password) => (dispatch, getState, {fetch}) =
   dispatch(signupRequest())
 
   // call the api
-  fetch(`${process.env.REACT_APP_API_URL}/api/v1/users`, {
+  return fetch(`${process.env.REACT_APP_API_URL}/api/v1/users`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
