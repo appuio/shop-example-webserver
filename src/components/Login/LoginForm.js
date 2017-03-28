@@ -1,20 +1,43 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {Button, Form} from 'semantic-ui-react'
+import validatejs from 'validate.js'
 
-const LoginForm = ({handleSubmit, onSubmit}) =>
-  <Form onSubmit={handleSubmit(onSubmit)}>
-    <Form.Field>
-      <label>Email</label>
-      <Field name="email" component="input" type="email"/>
-    </Form.Field>
-    <Form.Field>
-      <label>Password</label>
-      <Field name="password" component="input" type="password"/>
-    </Form.Field>
-    <Button type="submit">Submit</Button>
+import {renderField} from '../../utils/forms'
+
+const LoginForm = ({invalid, pristine, handleSubmit, onSubmit}) =>
+  <Form error={true} onSubmit={handleSubmit(onSubmit)}>
+    <Field
+      required
+      name="email"
+      label="Email"
+      component={renderField}
+      type="email"
+    />
+    <Field
+      required
+      name="password"
+      label="Password"
+      component={renderField}
+      type="password"
+    />
+    <Button
+      disabled={invalid || pristine}
+      type="submit"
+    >
+      Submit
+    </Button>
   </Form>
 
 export default reduxForm({
-  form: 'login'
+  form: 'login',
+  validate: values => validatejs(values, {
+    email: {
+      presence: true,
+      email: true
+    },
+    password: {
+      presence: true
+    }
+  })
 })(LoginForm)
