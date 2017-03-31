@@ -63,7 +63,7 @@ export const login = (email, password) => (dispatch, getState, {fetch}) => {
   dispatch(loginRequest())
 
   // call the api
-  return fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/login`, {
+  return fetch(`${process.env.REACT_APP_API_URL || '__API_URL__'}/api/v1/users/login`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
