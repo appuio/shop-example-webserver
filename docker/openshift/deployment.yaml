@@ -26,7 +26,7 @@ spec:
           - webserver-staging
         from:
           kind: ImageStreamTag
-          namespace: vshn-demoapp1c
+          namespace: vshn-demoapp1
           name: 'webserver:latest'  
   replicas: 1
   test: false
