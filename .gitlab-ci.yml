@@ -60,8 +60,6 @@ test:
     - yarn install --cache-folder="$YARN_CACHE"
     # test the application sources
     - yarn test
-  # TODO: remove once issue is fixed
-  allow_failure: true
 
 compile:
   <<: *yarn
