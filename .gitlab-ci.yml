@@ -10,17 +10,13 @@ variables:
   OC_REGISTRY_URL: registry.appuio.ch
   OC_REGISTRY_IMAGE: $OC_REGISTRY_URL/$KUBE_NAMESPACE/webserver
   OC_VERSION: 1.4.1
-  # YARN_CACHE: .yarn
 
 .yarn: &yarn
   stage: build
   image: node:$NODE_VERSION
   cache:
-    # by setting the cache key to the version of the node image, we invalidate the
-    # cache if the node version and possibly the packaged Yarn dependency is updated
-    key: $NODE_VERSION
+    key: $NODE_VERSION-cache
     paths:
-      # - $YARN_CACHE
       - node_modules
 
 .oc: &oc
@@ -58,17 +54,16 @@ mirror:
 test:
   <<: *yarn
   script:
-    - rm -rf .yarn
     # install necessary application packages
-    - yarn install # --cache-folder="$YARN_CACHE"
+    - yarn install
     # test the application sources
-    - yarn test --testPathPattern="src"
+    - yarn test
 
 compile:
   <<: *yarn
   script:
     # install necessary application packages
-    - yarn install # --cache-folder="$YARN_CACHE"
+    - yarn install
     # build the application sources
     - yarn build
   artifacts:
