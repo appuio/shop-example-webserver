@@ -6,7 +6,7 @@ stages:
 
 variables:
   CLUSTER_IP_STAGING: 172.30.215.173
-  NODE_VERSION: 6.10-alpine
+  NODE_VERSION: 6.10.2-alpine
   OC_REGISTRY_URL: registry.appuio.ch
   OC_REGISTRY_IMAGE: $OC_REGISTRY_URL/$KUBE_NAMESPACE/webserver
   OC_VERSION: 1.4.1
@@ -16,7 +16,10 @@ variables:
   stage: build
   image: node:$NODE_VERSION
   cache:
-    key: $CI_PROJECT_ID
+    # by setting it to the version of the node image, we invalidate the cache
+    # if the node version and possibly the packaged Yarn dependency is updated
+    # this should workaround caching breaking the test step
+    key: $NODE_VERSION
     paths:
       - $YARN_CACHE
       - node_modules
@@ -123,7 +126,7 @@ build-prod:
     - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
     - oc replace -f docker/openshift -R
     # trigger a deployment
-    - oc deploy webserver-prod --latest --follow
+    - oc deploy webserver-prod
   only:
     - tags
   when: manual
