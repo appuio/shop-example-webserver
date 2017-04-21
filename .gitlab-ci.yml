@@ -41,7 +41,7 @@ variables:
     - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
     - oc replace -f docker/openshift -R
     # trigger a deployment
-    - oc deploy webserver-$DEPLOY_ENV --latest --follow
+    - oc rollout latest dc/webserver-$DEPLOY_ENV
 
 mirror:
   stage: build
@@ -58,6 +58,7 @@ mirror:
 test:
   <<: *yarn
   script:
+    - rm -rf .yarn
     # install necessary application packages
     - yarn install # --cache-folder="$YARN_CACHE"
     # test the application sources
@@ -125,7 +126,7 @@ build-prod:
     - sed -i 's;'$CLUSTER_IP_STAGING';'$CLUSTER_IP';g' docker/openshift/*
     - oc replace -f docker/openshift -R
     # trigger a deployment
-    - oc deploy webserver-prod
+    - oc rollout latest dc/webserver-prod
   only:
     - tags
   when: manual
