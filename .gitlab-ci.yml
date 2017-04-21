@@ -61,7 +61,7 @@ test:
     # install necessary application packages
     - yarn install --cache-folder="$YARN_CACHE"
     # test the application sources
-    - yarn test --testPathIgnorePatterns=["./node_modules", "./.yarn"]
+    - yarn test --testPathPattern="src"
 
 compile:
   <<: *yarn
