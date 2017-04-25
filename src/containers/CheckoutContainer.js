@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Checkout from '../components/Checkout/Checkout'
+import {checkout} from '../redux/modules/checkout'
 
 class CheckoutContainer extends Component {
   render() {
@@ -13,6 +14,6 @@ export default connect(
     cart: state.cart
   }),
   dispatch => ({
-    checkout: () => console.log('checking out')
+    checkout: (cart) => dispatch(checkout(cart))
   })
 )(CheckoutContainer)
