@@ -30,8 +30,8 @@
     "whatwg-fetch": "^2.0.2"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_API_URL='http://172.28.128.3:9000' react-scripts start",
-    "build-local": "cross-env REACT_APP_API_URL='http://172.28.128.3:9000' react-scripts build",
+    "start": "cross-env REACT_APP_API_URL='http\\://172.28.128.3\\:9000' react-scripts start",
+    "build-local": "cross-env REACT_APP_API_URL='http\\://172.28.128.3\\:9000' react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
