@@ -6,7 +6,7 @@
   "author": "Roland Schläfli <rolandschlaefli@gmail.com>",
   "private": true,
   "devDependencies": {
-    "cross-env": "^3.2.4",
+    "cross-env": "^4.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest-fetch-mock": "^1.0.8",
     "react-scripts": "0.9.5"
@@ -25,12 +25,12 @@
     "redux-mock-store": "^1.2.2",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.9",
-    "semantic-ui-react": "^0.67.1",
+    "semantic-ui-react": "^0.68.2",
     "validate.js": "^0.11.1",
     "whatwg-fetch": "^2.0.2"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_API_URL='https://api-staging-vshn-demoapp1.appuioapp.ch' react-scripts start",
+    "start": "cross-env REACT_APP_API_URL='http://172.28.128.3:9000' react-scripts start",
     "build-local": "cross-env REACT_APP_API_URL='http://172.28.128.3:9000' react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
