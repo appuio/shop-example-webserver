@@ -12,6 +12,7 @@ const App = () =>
       {/* page contents */}
       <Route exact path="/" component={containers.Products}/>
       <Route exact path="/cart" component={containers.Cart}/>
+      <Route exact path="/checkout" component={containers.Checkout}/>
       <Route exact path="/login" component={containers.Login}/>
       <Route exact path="/signup" component={containers.Signup}/>
       <Route path="/products/:id" component={containers.Product}/>

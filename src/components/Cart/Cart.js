@@ -1,6 +1,7 @@
 import _map from 'lodash/map'
 import React from 'react'
-import {Grid, Message, Segment, Table} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import {Button, Grid, Message, Segment, Table} from 'semantic-ui-react'
 import CartItem from './CartItem'
 
 const Cart = ({cart, removeItem, updateItem}) => {
@@ -41,7 +42,7 @@ const Cart = ({cart, removeItem, updateItem}) => {
                     <Table.HeaderCell />
                     <Table.HeaderCell />
                     <Table.HeaderCell><strong>{cart.sum} CHF</strong></Table.HeaderCell>
-                    <Table.HeaderCell />
+                    <Table.HeaderCell><Button as={Link} exact to="/checkout">Checkout</Button></Table.HeaderCell>
                   </Table.Row>
                 </Table.Footer>
               </Table>

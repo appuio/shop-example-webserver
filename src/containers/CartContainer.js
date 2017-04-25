@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Cart from '../components/Cart/Cart'
 import {cartRemoveItem, cartUpdateItem} from '../redux/modules/cart'
 
-class ProductsContainer extends Component {
+class CartContainer extends Component {
   render() {
     return <Cart cart={this.props.cart} updateItem={this.props.updateItem} removeItem={this.props.removeItem}/>
   }
@@ -17,4 +17,4 @@ export default connect(
     removeItem: (uuid) => dispatch(cartRemoveItem(uuid)),
     updateItem: (uuid, quantity) => dispatch(cartUpdateItem(uuid, quantity))
   })
-)(ProductsContainer)
+)(CartContainer)
