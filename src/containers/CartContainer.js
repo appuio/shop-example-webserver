@@ -5,13 +5,15 @@ import {cartRemoveItem, cartUpdateItem} from '../redux/modules/cart'
 
 class CartContainer extends Component {
   render() {
-    return <Cart cart={this.props.cart} updateItem={this.props.updateItem} removeItem={this.props.removeItem}/>
+    return <Cart cart={this.props.cart} updateItem={this.props.updateItem} removeItem={this.props.removeItem}
+                 loggedIn={this.props.loggedIn}/>
   }
 }
 
 export default connect(
   state => ({
-    cart: state.cart
+    cart: state.cart,
+    loggedIn: !!state.login.data
   }),
   dispatch => ({
     removeItem: (uuid) => dispatch(cartRemoveItem(uuid)),
