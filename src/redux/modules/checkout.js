@@ -45,7 +45,7 @@ export const checkoutRequest = () => ({type: CHECKOUT_REQUEST})
 export const checkoutReceive = (data) => ({type: CHECKOUT_RECEIVE, payload: data})
 export const checkoutFail = (message) => ({type: CHECKOUT_FAIL, payload: {message}})
 
-export const checkout = (cart) => (dispatch, getState, {fetch}) => {
+export const checkout = () => (dispatch, getState, {fetch}) => {
   // start a new request
   dispatch(checkoutRequest())
 
@@ -58,7 +58,7 @@ export const checkout = (cart) => (dispatch, getState, {fetch}) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      products: _map(cart.items, item => item.uuid)
+      products: _map(getState().cart.items, item => ({uuid: item.uuid, quantity: item.quantity}))
     })
   })
     .then(checkStatus)
