@@ -5,7 +5,7 @@ import validatejs from 'validate.js'
 
 import {renderField} from '../../utils/forms'
 
-const LoginForm = ({invalid, pristine, handleSubmit, onSubmit}) =>
+const LoginForm = ({invalid, handleSubmit, onSubmit}) =>
   <Form error={true} onSubmit={handleSubmit(onSubmit)}>
     <Field
       required
@@ -22,7 +22,7 @@ const LoginForm = ({invalid, pristine, handleSubmit, onSubmit}) =>
       type="password"
     />
     <Button
-      disabled={invalid || pristine}
+      disabled={invalid}
       type="submit"
     >
       Submit
@@ -39,5 +39,9 @@ export default reduxForm({
     password: {
       presence: true
     }
-  })
+  }),
+  initialValues: {
+    email: 'tester@appuio.ch',
+    password: 'abcd'
+  }
 })(LoginForm)
