@@ -1,15 +1,15 @@
 import React from 'react'
 import {Grid, Header, Segment, Table} from 'semantic-ui-react'
 
-const Orders = ({orders: {loading, items, error}}) => {
+const Orders = ({orders: {items}}) => {
   return (
     <Grid.Row>
       <Grid.Column width="16">
         <Header as="h1">Orders</Header>
         {items.map(item =>
           <div>
-            <Header as="h2" attached="top">Order #${item.id}</Header>
-            <Segment attached="bottom">
+            <Header as="h2" attached="top">Order #{item.id}</Header>
+            <Segment attached>
               <Table>
                 <Table.Header>
                   <Table.Row>
@@ -23,6 +23,7 @@ const Orders = ({orders: {loading, items, error}}) => {
                 </Table.Body>
               </Table>
             </Segment>
+            <br />
           </div>
         )}
       </Grid.Column>
