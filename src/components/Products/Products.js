@@ -4,7 +4,7 @@ import Product from './Product'
 
 const Products = ({products: {loading, filtered, filters, error}, applyFilter}) => {
   const mapToOptions = (items) => {
-    items.map(item => ({text: item, value: item}))
+    return ([...new Set(items)]).map(item => ({text: item, value: item}))
   }
 
   return (
