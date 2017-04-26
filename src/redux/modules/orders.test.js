@@ -7,7 +7,7 @@ const mockStore = configureMockStore([thunk.withExtraArgument({fetch})])
 
 const initialState = {
   loading: false,
-  data: null,
+  items: [],
   error: null
 }
 
