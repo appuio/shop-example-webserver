@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import {Dropdown, Grid, Icon, Menu} from 'semantic-ui-react'
 
 const Header = ({loginData, logout}) => {
@@ -19,6 +19,7 @@ const Header = ({loginData, logout}) => {
               <Menu.Menu position="right">
                 <Dropdown item text={loginData.email}>
                   <Dropdown.Menu>
+                    <Dropdown.Item as={Link} exact to="/orders">Orders</Dropdown.Item>
                     <Dropdown.Item onClick={() => logout()}>
                       <Icon name="sign out"/>Logout
                     </Dropdown.Item>

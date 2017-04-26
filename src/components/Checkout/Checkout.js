@@ -1,11 +1,14 @@
 import _map from 'lodash/map'
 import React from 'react'
-import {Button, Grid, Header, List, Segment, Table} from 'semantic-ui-react'
+import {Button, Grid, Header, List, Message, Segment, Table} from 'semantic-ui-react'
 
-const Checkout = ({cart, checkout}) => {
+const Checkout = ({cart, checkout, error, success}) => {
   return (
     <Grid.Row>
       <Grid.Column width="12">
+
+        {success && <Message success>Checkout successful</Message>}
+        {error && <Message error>Checkout failed: {error}</Message>}
 
         <Header as="h2" attached="top">Shipping</Header>
         <Segment attached>

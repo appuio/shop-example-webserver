@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import reducer from './checkout'
+import reducer from './orders'
 
 // configure the mock store
 const mockStore = configureMockStore([thunk.withExtraArgument({fetch})])
@@ -11,7 +11,7 @@ const initialState = {
   error: null
 }
 
-describe('checkout - reducer', () => {
+describe('orders - reducer', () => {
 
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState)
